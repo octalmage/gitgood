@@ -45,9 +45,10 @@ export default {
     }
   },
   watch: {
-    // whenever question changes, this function will run
+    // whenever currentAccount changes, this function will run.
     currentAccount: async function (newAccount) {
       if (newAccount) {
+        // Update balances for the user so we know if they already have EXP.
         this.updateBalances()
       }
     }
