@@ -1,4 +1,4 @@
 vue/node_modules
 vue/dist
 secret.yml
-vue/src/store/generated/*
+vue/src/store/generated/octalmage/*
