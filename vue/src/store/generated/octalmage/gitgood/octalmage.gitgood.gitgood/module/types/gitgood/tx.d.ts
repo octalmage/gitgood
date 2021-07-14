@@ -1,6 +1,32 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 export declare const protobufPackage = "octalmage.gitgood.gitgood";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateGoal {
+    creator: string;
+    label: string;
+    comparison: number;
+    exp: number;
+    createdAt: number;
+}
+export interface MsgCreateGoalResponse {
+    id: number;
+}
+export interface MsgUpdateGoal {
+    creator: string;
+    id: number;
+    label: string;
+    comparison: number;
+    exp: number;
+    createdAt: number;
+}
+export interface MsgUpdateGoalResponse {
+}
+export interface MsgDeleteGoal {
+    creator: string;
+    id: number;
+}
+export interface MsgDeleteGoalResponse {
+}
 export interface MsgCreateStat {
     creator: string;
     statType: number;
@@ -49,6 +75,48 @@ export interface MsgDeleteTeam {
 }
 export interface MsgDeleteTeamResponse {
 }
+export declare const MsgCreateGoal: {
+    encode(message: MsgCreateGoal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateGoal;
+    fromJSON(object: any): MsgCreateGoal;
+    toJSON(message: MsgCreateGoal): unknown;
+    fromPartial(object: DeepPartial<MsgCreateGoal>): MsgCreateGoal;
+};
+export declare const MsgCreateGoalResponse: {
+    encode(message: MsgCreateGoalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateGoalResponse;
+    fromJSON(object: any): MsgCreateGoalResponse;
+    toJSON(message: MsgCreateGoalResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateGoalResponse>): MsgCreateGoalResponse;
+};
+export declare const MsgUpdateGoal: {
+    encode(message: MsgUpdateGoal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateGoal;
+    fromJSON(object: any): MsgUpdateGoal;
+    toJSON(message: MsgUpdateGoal): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateGoal>): MsgUpdateGoal;
+};
+export declare const MsgUpdateGoalResponse: {
+    encode(_: MsgUpdateGoalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateGoalResponse;
+    fromJSON(_: any): MsgUpdateGoalResponse;
+    toJSON(_: MsgUpdateGoalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateGoalResponse>): MsgUpdateGoalResponse;
+};
+export declare const MsgDeleteGoal: {
+    encode(message: MsgDeleteGoal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteGoal;
+    fromJSON(object: any): MsgDeleteGoal;
+    toJSON(message: MsgDeleteGoal): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteGoal>): MsgDeleteGoal;
+};
+export declare const MsgDeleteGoalResponse: {
+    encode(_: MsgDeleteGoalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteGoalResponse;
+    fromJSON(_: any): MsgDeleteGoalResponse;
+    toJSON(_: MsgDeleteGoalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteGoalResponse>): MsgDeleteGoalResponse;
+};
 export declare const MsgCreateStat: {
     encode(message: MsgCreateStat, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateStat;
@@ -136,6 +204,9 @@ export declare const MsgDeleteTeamResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>;
+    UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>;
+    DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>;
     CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse>;
     UpdateStat(request: MsgUpdateStat): Promise<MsgUpdateStatResponse>;
     DeleteStat(request: MsgDeleteStat): Promise<MsgDeleteStatResponse>;
@@ -146,6 +217,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>;
+    UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>;
+    DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>;
     CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse>;
     UpdateStat(request: MsgUpdateStat): Promise<MsgUpdateStatResponse>;
     DeleteStat(request: MsgDeleteStat): Promise<MsgDeleteStatResponse>;

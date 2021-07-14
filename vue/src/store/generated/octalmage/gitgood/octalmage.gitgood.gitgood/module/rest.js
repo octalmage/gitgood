@@ -140,6 +140,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryGoalAll
+         * @summary Queries a list of goal items.
+         * @request GET:/octalmage/gitgood/gitgood/goal
+         */
+        this.queryGoalAll = (query, params = {}) => this.request({
+            path: `/octalmage/gitgood/gitgood/goal`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryGoal
+         * @summary Queries a goal by id.
+         * @request GET:/octalmage/gitgood/gitgood/goal/{id}
+         */
+        this.queryGoal = (id, params = {}) => this.request({
+            path: `/octalmage/gitgood/gitgood/goal/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryStatAll
          * @summary Queries a list of stat items.
          * @request GET:/octalmage/gitgood/gitgood/stat

@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the goal
+	for _, elem := range genState.GoalList {
+		k.SetGoal(ctx, *elem)
+	}
+
+	// Set goal count
+	k.SetGoalCount(ctx, genState.GoalCount)
+
 	// Set all the stat
 	for _, elem := range genState.StatList {
 		k.SetStat(ctx, *elem)
@@ -34,6 +42,16 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all goal
+	goalList := k.GetAllGoal(ctx)
+	for _, elem := range goalList {
+		elem := elem
+		genesis.GoalList = append(genesis.GoalList, &elem)
+	}
+
+	// Set the current count
+	genesis.GoalCount = k.GetGoalCount(ctx)
+
 	// Get all stat
 	statList := k.GetAllStat(ctx)
 	for _, elem := range statList {

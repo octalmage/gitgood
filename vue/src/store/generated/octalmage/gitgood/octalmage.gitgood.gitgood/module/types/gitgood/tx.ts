@@ -5,6 +5,36 @@ import * as Long from 'long'
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateGoal {
+  creator: string
+  label: string
+  comparison: number
+  exp: number
+  createdAt: number
+}
+
+export interface MsgCreateGoalResponse {
+  id: number
+}
+
+export interface MsgUpdateGoal {
+  creator: string
+  id: number
+  label: string
+  comparison: number
+  exp: number
+  createdAt: number
+}
+
+export interface MsgUpdateGoalResponse {}
+
+export interface MsgDeleteGoal {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteGoalResponse {}
+
 export interface MsgCreateStat {
   creator: string
   statType: number
@@ -60,6 +90,472 @@ export interface MsgDeleteTeam {
 }
 
 export interface MsgDeleteTeamResponse {}
+
+const baseMsgCreateGoal: object = { creator: '', label: '', comparison: 0, exp: 0, createdAt: 0 }
+
+export const MsgCreateGoal = {
+  encode(message: MsgCreateGoal, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.label !== '') {
+      writer.uint32(18).string(message.label)
+    }
+    if (message.comparison !== 0) {
+      writer.uint32(24).int32(message.comparison)
+    }
+    if (message.exp !== 0) {
+      writer.uint32(32).int32(message.exp)
+    }
+    if (message.createdAt !== 0) {
+      writer.uint32(40).int32(message.createdAt)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateGoal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateGoal } as MsgCreateGoal
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.label = reader.string()
+          break
+        case 3:
+          message.comparison = reader.int32()
+          break
+        case 4:
+          message.exp = reader.int32()
+          break
+        case 5:
+          message.createdAt = reader.int32()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateGoal {
+    const message = { ...baseMsgCreateGoal } as MsgCreateGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = String(object.label)
+    } else {
+      message.label = ''
+    }
+    if (object.comparison !== undefined && object.comparison !== null) {
+      message.comparison = Number(object.comparison)
+    } else {
+      message.comparison = 0
+    }
+    if (object.exp !== undefined && object.exp !== null) {
+      message.exp = Number(object.exp)
+    } else {
+      message.exp = 0
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = Number(object.createdAt)
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateGoal): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.label !== undefined && (obj.label = message.label)
+    message.comparison !== undefined && (obj.comparison = message.comparison)
+    message.exp !== undefined && (obj.exp = message.exp)
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateGoal>): MsgCreateGoal {
+    const message = { ...baseMsgCreateGoal } as MsgCreateGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label
+    } else {
+      message.label = ''
+    }
+    if (object.comparison !== undefined && object.comparison !== null) {
+      message.comparison = object.comparison
+    } else {
+      message.comparison = 0
+    }
+    if (object.exp !== undefined && object.exp !== null) {
+      message.exp = object.exp
+    } else {
+      message.exp = 0
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = object.createdAt
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  }
+}
+
+const baseMsgCreateGoalResponse: object = { id: 0 }
+
+export const MsgCreateGoalResponse = {
+  encode(message: MsgCreateGoalResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateGoalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateGoalResponse } as MsgCreateGoalResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateGoalResponse {
+    const message = { ...baseMsgCreateGoalResponse } as MsgCreateGoalResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateGoalResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateGoalResponse>): MsgCreateGoalResponse {
+    const message = { ...baseMsgCreateGoalResponse } as MsgCreateGoalResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateGoal: object = { creator: '', id: 0, label: '', comparison: 0, exp: 0, createdAt: 0 }
+
+export const MsgUpdateGoal = {
+  encode(message: MsgUpdateGoal, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.label !== '') {
+      writer.uint32(26).string(message.label)
+    }
+    if (message.comparison !== 0) {
+      writer.uint32(32).int32(message.comparison)
+    }
+    if (message.exp !== 0) {
+      writer.uint32(40).int32(message.exp)
+    }
+    if (message.createdAt !== 0) {
+      writer.uint32(48).int32(message.createdAt)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateGoal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateGoal } as MsgUpdateGoal
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.label = reader.string()
+          break
+        case 4:
+          message.comparison = reader.int32()
+          break
+        case 5:
+          message.exp = reader.int32()
+          break
+        case 6:
+          message.createdAt = reader.int32()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateGoal {
+    const message = { ...baseMsgUpdateGoal } as MsgUpdateGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = String(object.label)
+    } else {
+      message.label = ''
+    }
+    if (object.comparison !== undefined && object.comparison !== null) {
+      message.comparison = Number(object.comparison)
+    } else {
+      message.comparison = 0
+    }
+    if (object.exp !== undefined && object.exp !== null) {
+      message.exp = Number(object.exp)
+    } else {
+      message.exp = 0
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = Number(object.createdAt)
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateGoal): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.label !== undefined && (obj.label = message.label)
+    message.comparison !== undefined && (obj.comparison = message.comparison)
+    message.exp !== undefined && (obj.exp = message.exp)
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateGoal>): MsgUpdateGoal {
+    const message = { ...baseMsgUpdateGoal } as MsgUpdateGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label
+    } else {
+      message.label = ''
+    }
+    if (object.comparison !== undefined && object.comparison !== null) {
+      message.comparison = object.comparison
+    } else {
+      message.comparison = 0
+    }
+    if (object.exp !== undefined && object.exp !== null) {
+      message.exp = object.exp
+    } else {
+      message.exp = 0
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = object.createdAt
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateGoalResponse: object = {}
+
+export const MsgUpdateGoalResponse = {
+  encode(_: MsgUpdateGoalResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateGoalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateGoalResponse } as MsgUpdateGoalResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateGoalResponse {
+    const message = { ...baseMsgUpdateGoalResponse } as MsgUpdateGoalResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateGoalResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateGoalResponse>): MsgUpdateGoalResponse {
+    const message = { ...baseMsgUpdateGoalResponse } as MsgUpdateGoalResponse
+    return message
+  }
+}
+
+const baseMsgDeleteGoal: object = { creator: '', id: 0 }
+
+export const MsgDeleteGoal = {
+  encode(message: MsgDeleteGoal, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteGoal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteGoal } as MsgDeleteGoal
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteGoal {
+    const message = { ...baseMsgDeleteGoal } as MsgDeleteGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteGoal): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteGoal>): MsgDeleteGoal {
+    const message = { ...baseMsgDeleteGoal } as MsgDeleteGoal
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteGoalResponse: object = {}
+
+export const MsgDeleteGoalResponse = {
+  encode(_: MsgDeleteGoalResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteGoalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteGoalResponse } as MsgDeleteGoalResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteGoalResponse {
+    const message = { ...baseMsgDeleteGoalResponse } as MsgDeleteGoalResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteGoalResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteGoalResponse>): MsgDeleteGoalResponse {
+    const message = { ...baseMsgDeleteGoalResponse } as MsgDeleteGoalResponse
+    return message
+  }
+}
 
 const baseMsgCreateStat: object = { creator: '', statType: 0, initial: 0, final: 0, owner: '' }
 
@@ -942,6 +1438,9 @@ export const MsgDeleteTeamResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>
+  UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>
+  DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>
   CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse>
   UpdateStat(request: MsgUpdateStat): Promise<MsgUpdateStatResponse>
   DeleteStat(request: MsgDeleteStat): Promise<MsgDeleteStatResponse>
@@ -955,6 +1454,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse> {
+    const data = MsgCreateGoal.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateGoal', data)
+    return promise.then((data) => MsgCreateGoalResponse.decode(new Reader(data)))
+  }
+
+  UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse> {
+    const data = MsgUpdateGoal.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'UpdateGoal', data)
+    return promise.then((data) => MsgUpdateGoalResponse.decode(new Reader(data)))
+  }
+
+  DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse> {
+    const data = MsgDeleteGoal.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'DeleteGoal', data)
+    return promise.then((data) => MsgDeleteGoalResponse.decode(new Reader(data)))
+  }
+
   CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse> {
     const data = MsgCreateStat.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateStat', data)

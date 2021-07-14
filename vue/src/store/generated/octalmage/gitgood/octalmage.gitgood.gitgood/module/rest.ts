@@ -9,6 +9,28 @@
  * ---------------------------------------------------------------
  */
 
+export interface GitgoodGoal {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  label?: string;
+
+  /** @format int32 */
+  comparison?: number;
+
+  /** @format int32 */
+  exp?: number;
+
+  /** @format int32 */
+  createdAt?: number;
+}
+
+export interface GitgoodMsgCreateGoalResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
 export interface GitgoodMsgCreateStatResponse {
   /** @format uint64 */
   id?: string;
@@ -19,13 +41,32 @@ export interface GitgoodMsgCreateTeamResponse {
   id?: string;
 }
 
+export type GitgoodMsgDeleteGoalResponse = object;
+
 export type GitgoodMsgDeleteStatResponse = object;
 
 export type GitgoodMsgDeleteTeamResponse = object;
 
+export type GitgoodMsgUpdateGoalResponse = object;
+
 export type GitgoodMsgUpdateStatResponse = object;
 
 export type GitgoodMsgUpdateTeamResponse = object;
+
+export interface GitgoodQueryAllGoalResponse {
+  Goal?: GitgoodGoal[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
 
 export interface GitgoodQueryAllStatResponse {
   Stat?: GitgoodStat[];
@@ -55,6 +96,10 @@ export interface GitgoodQueryAllTeamResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface GitgoodQueryGetGoalResponse {
+  Goal?: GitgoodGoal;
 }
 
 export interface GitgoodQueryGetStatResponse {
@@ -360,6 +405,47 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryGoalAll
+   * @summary Queries a list of goal items.
+   * @request GET:/octalmage/gitgood/gitgood/goal
+   */
+  queryGoalAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<GitgoodQueryAllGoalResponse, RpcStatus>({
+      path: `/octalmage/gitgood/gitgood/goal`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryGoal
+   * @summary Queries a goal by id.
+   * @request GET:/octalmage/gitgood/gitgood/goal/{id}
+   */
+  queryGoal = (id: string, params: RequestParams = {}) =>
+    this.request<GitgoodQueryGetGoalResponse, RpcStatus>({
+      path: `/octalmage/gitgood/gitgood/goal/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

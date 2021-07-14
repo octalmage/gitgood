@@ -4,7 +4,7 @@
 		v-on:sidebar-close="sidebarOpen = false"
 	>
 		<template v-slot:default>
-			<SpLinkIcon link="/" text="Dashboard" icon="Dashboard" />
+			<SpLinkIcon link="/" text="Admin" icon="Dashboard" />
 			<SpLinkIcon link="/wallet" text="Wallet" icon="Form" />
 			<div class="sp-dash"></div>
 			<SpLinkIcon

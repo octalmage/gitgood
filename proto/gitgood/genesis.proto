@@ -2,6 +2,7 @@ syntax = "proto3";
 package octalmage.gitgood.gitgood;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "gitgood/goal.proto";
 import "gitgood/stat.proto";
 import "gitgood/team.proto";
 
@@ -10,6 +11,8 @@ option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
 // GenesisState defines the gitgood module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Goal goalList = 5; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 goalCount = 6; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Stat statList = 3; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 statCount = 4; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Team teamList = 1; // this line is used by starport scaffolding # genesis/proto/stateField

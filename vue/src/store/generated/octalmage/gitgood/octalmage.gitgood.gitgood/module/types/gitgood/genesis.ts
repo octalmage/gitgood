@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from 'long'
 import { util, configure, Writer, Reader } from 'protobufjs/minimal'
+import { Goal } from '../gitgood/goal'
 import { Stat } from '../gitgood/stat'
 import { Team } from '../gitgood/team'
 
@@ -9,6 +10,10 @@ export const protobufPackage = 'octalmage.gitgood.gitgood'
 /** GenesisState defines the gitgood module's genesis state. */
 export interface GenesisState {
   /** this line is used by starport scaffolding # genesis/proto/state */
+  goalList: Goal[]
+  /** this line is used by starport scaffolding # genesis/proto/stateField */
+  goalCount: number
+  /** this line is used by starport scaffolding # genesis/proto/stateField */
   statList: Stat[]
   /** this line is used by starport scaffolding # genesis/proto/stateField */
   statCount: number
@@ -18,10 +23,16 @@ export interface GenesisState {
   teamCount: number
 }
 
-const baseGenesisState: object = { statCount: 0, teamCount: 0 }
+const baseGenesisState: object = { goalCount: 0, statCount: 0, teamCount: 0 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
+    for (const v of message.goalList) {
+      Goal.encode(v!, writer.uint32(42).fork()).ldelim()
+    }
+    if (message.goalCount !== 0) {
+      writer.uint32(48).uint64(message.goalCount)
+    }
     for (const v of message.statList) {
       Stat.encode(v!, writer.uint32(26).fork()).ldelim()
     }
@@ -41,11 +52,18 @@ export const GenesisState = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseGenesisState } as GenesisState
+    message.goalList = []
     message.statList = []
     message.teamList = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 5:
+          message.goalList.push(Goal.decode(reader, reader.uint32()))
+          break
+        case 6:
+          message.goalCount = longToNumber(reader.uint64() as Long)
+          break
         case 3:
           message.statList.push(Stat.decode(reader, reader.uint32()))
           break
@@ -68,8 +86,19 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState
+    message.goalList = []
     message.statList = []
     message.teamList = []
+    if (object.goalList !== undefined && object.goalList !== null) {
+      for (const e of object.goalList) {
+        message.goalList.push(Goal.fromJSON(e))
+      }
+    }
+    if (object.goalCount !== undefined && object.goalCount !== null) {
+      message.goalCount = Number(object.goalCount)
+    } else {
+      message.goalCount = 0
+    }
     if (object.statList !== undefined && object.statList !== null) {
       for (const e of object.statList) {
         message.statList.push(Stat.fromJSON(e))
@@ -95,6 +124,12 @@ export const GenesisState = {
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
+    if (message.goalList) {
+      obj.goalList = message.goalList.map((e) => (e ? Goal.toJSON(e) : undefined))
+    } else {
+      obj.goalList = []
+    }
+    message.goalCount !== undefined && (obj.goalCount = message.goalCount)
     if (message.statList) {
       obj.statList = message.statList.map((e) => (e ? Stat.toJSON(e) : undefined))
     } else {
@@ -112,8 +147,19 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState
+    message.goalList = []
     message.statList = []
     message.teamList = []
+    if (object.goalList !== undefined && object.goalList !== null) {
+      for (const e of object.goalList) {
+        message.goalList.push(Goal.fromPartial(e))
+      }
+    }
+    if (object.goalCount !== undefined && object.goalCount !== null) {
+      message.goalCount = object.goalCount
+    } else {
+      message.goalCount = 0
+    }
     if (object.statList !== undefined && object.statList !== null) {
       for (const e of object.statList) {
         message.statList.push(Stat.fromPartial(e))

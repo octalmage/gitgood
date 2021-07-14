@@ -34,3 +34,8 @@ const (
 	StatKey      = "Stat-value-"
 	StatCountKey = "Stat-count-"
 )
+
+const (
+	GoalKey      = "Goal-value-"
+	GoalCountKey = "Goal-count-"
+)

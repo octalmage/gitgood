@@ -1,10 +1,240 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
-import { Stat } from '../gitgood/stat';
+import { Goal } from '../gitgood/goal';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { Stat } from '../gitgood/stat';
 import { Team } from '../gitgood/team';
 export const protobufPackage = 'octalmage.gitgood.gitgood';
+const baseQueryGetGoalRequest = { id: 0 };
+export const QueryGetGoalRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetGoalRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetGoalRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetGoalRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseQueryGetGoalResponse = {};
+export const QueryGetGoalResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Goal !== undefined) {
+            Goal.encode(message.Goal, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetGoalResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Goal = Goal.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetGoalResponse };
+        if (object.Goal !== undefined && object.Goal !== null) {
+            message.Goal = Goal.fromJSON(object.Goal);
+        }
+        else {
+            message.Goal = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Goal !== undefined && (obj.Goal = message.Goal ? Goal.toJSON(message.Goal) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetGoalResponse };
+        if (object.Goal !== undefined && object.Goal !== null) {
+            message.Goal = Goal.fromPartial(object.Goal);
+        }
+        else {
+            message.Goal = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllGoalRequest = {};
+export const QueryAllGoalRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllGoalRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllGoalRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllGoalRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllGoalResponse = {};
+export const QueryAllGoalResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Goal) {
+            Goal.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllGoalResponse };
+        message.Goal = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Goal.push(Goal.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllGoalResponse };
+        message.Goal = [];
+        if (object.Goal !== undefined && object.Goal !== null) {
+            for (const e of object.Goal) {
+                message.Goal.push(Goal.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Goal) {
+            obj.Goal = message.Goal.map((e) => (e ? Goal.toJSON(e) : undefined));
+        }
+        else {
+            obj.Goal = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllGoalResponse };
+        message.Goal = [];
+        if (object.Goal !== undefined && object.Goal !== null) {
+            for (const e of object.Goal) {
+                message.Goal.push(Goal.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryGetStatRequest = { id: 0 };
 export const QueryGetStatRequest = {
     encode(message, writer = Writer.create()) {
@@ -466,6 +696,16 @@ export const QueryAllTeamResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    Goal(request) {
+        const data = QueryGetGoalRequest.encode(request).finish();
+        const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Goal', data);
+        return promise.then((data) => QueryGetGoalResponse.decode(new Reader(data)));
+    }
+    GoalAll(request) {
+        const data = QueryAllGoalRequest.encode(request).finish();
+        const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'GoalAll', data);
+        return promise.then((data) => QueryAllGoalResponse.decode(new Reader(data)));
     }
     Stat(request) {
         const data = QueryGetStatRequest.encode(request).finish();

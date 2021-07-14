@@ -1,13 +1,31 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { Stat } from '../gitgood/stat'
+import { Goal } from '../gitgood/goal'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { Stat } from '../gitgood/stat'
 import { Team } from '../gitgood/team'
 
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetGoalRequest {
+  id: number
+}
+
+export interface QueryGetGoalResponse {
+  Goal: Goal | undefined
+}
+
+export interface QueryAllGoalRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllGoalResponse {
+  Goal: Goal[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetStatRequest {
   id: number
 }
@@ -40,6 +58,250 @@ export interface QueryAllTeamRequest {
 export interface QueryAllTeamResponse {
   Team: Team[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetGoalRequest: object = { id: 0 }
+
+export const QueryGetGoalRequest = {
+  encode(message: QueryGetGoalRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetGoalRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetGoalRequest } as QueryGetGoalRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetGoalRequest {
+    const message = { ...baseQueryGetGoalRequest } as QueryGetGoalRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetGoalRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetGoalRequest>): QueryGetGoalRequest {
+    const message = { ...baseQueryGetGoalRequest } as QueryGetGoalRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetGoalResponse: object = {}
+
+export const QueryGetGoalResponse = {
+  encode(message: QueryGetGoalResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Goal !== undefined) {
+      Goal.encode(message.Goal, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetGoalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetGoalResponse } as QueryGetGoalResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Goal = Goal.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetGoalResponse {
+    const message = { ...baseQueryGetGoalResponse } as QueryGetGoalResponse
+    if (object.Goal !== undefined && object.Goal !== null) {
+      message.Goal = Goal.fromJSON(object.Goal)
+    } else {
+      message.Goal = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetGoalResponse): unknown {
+    const obj: any = {}
+    message.Goal !== undefined && (obj.Goal = message.Goal ? Goal.toJSON(message.Goal) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetGoalResponse>): QueryGetGoalResponse {
+    const message = { ...baseQueryGetGoalResponse } as QueryGetGoalResponse
+    if (object.Goal !== undefined && object.Goal !== null) {
+      message.Goal = Goal.fromPartial(object.Goal)
+    } else {
+      message.Goal = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllGoalRequest: object = {}
+
+export const QueryAllGoalRequest = {
+  encode(message: QueryAllGoalRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllGoalRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllGoalRequest } as QueryAllGoalRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllGoalRequest {
+    const message = { ...baseQueryAllGoalRequest } as QueryAllGoalRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllGoalRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllGoalRequest>): QueryAllGoalRequest {
+    const message = { ...baseQueryAllGoalRequest } as QueryAllGoalRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllGoalResponse: object = {}
+
+export const QueryAllGoalResponse = {
+  encode(message: QueryAllGoalResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.Goal) {
+      Goal.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllGoalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllGoalResponse } as QueryAllGoalResponse
+    message.Goal = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Goal.push(Goal.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllGoalResponse {
+    const message = { ...baseQueryAllGoalResponse } as QueryAllGoalResponse
+    message.Goal = []
+    if (object.Goal !== undefined && object.Goal !== null) {
+      for (const e of object.Goal) {
+        message.Goal.push(Goal.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllGoalResponse): unknown {
+    const obj: any = {}
+    if (message.Goal) {
+      obj.Goal = message.Goal.map((e) => (e ? Goal.toJSON(e) : undefined))
+    } else {
+      obj.Goal = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllGoalResponse>): QueryAllGoalResponse {
+    const message = { ...baseQueryAllGoalResponse } as QueryAllGoalResponse
+    message.Goal = []
+    if (object.Goal !== undefined && object.Goal !== null) {
+      for (const e of object.Goal) {
+        message.Goal.push(Goal.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetStatRequest: object = { id: 0 }
@@ -532,6 +794,10 @@ export const QueryAllTeamResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a goal by id. */
+  Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse>
+  /** Queries a list of goal items. */
+  GoalAll(request: QueryAllGoalRequest): Promise<QueryAllGoalResponse>
   /** Queries a stat by id. */
   Stat(request: QueryGetStatRequest): Promise<QueryGetStatResponse>
   /** Queries a list of stat items. */
@@ -547,6 +813,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse> {
+    const data = QueryGetGoalRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Goal', data)
+    return promise.then((data) => QueryGetGoalResponse.decode(new Reader(data)))
+  }
+
+  GoalAll(request: QueryAllGoalRequest): Promise<QueryAllGoalResponse> {
+    const data = QueryAllGoalRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'GoalAll', data)
+    return promise.then((data) => QueryAllGoalResponse.decode(new Reader(data)))
+  }
+
   Stat(request: QueryGetStatRequest): Promise<QueryGetStatResponse> {
     const data = QueryGetStatRequest.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Stat', data)
