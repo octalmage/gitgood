@@ -4,7 +4,7 @@ export interface Team {
     creator: string;
     id: number;
     name: string;
-    users: string;
+    users: string[];
 }
 export declare const Team: {
     encode(message: Team, writer?: Writer): Writer;

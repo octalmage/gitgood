@@ -23,17 +23,19 @@ func CmdCreateTeam() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsUsers, err := cast.ToStringE(args[1])
-			if err != nil {
-				return err
-			}
+
+			// TODO: Accept users from the command line.
+			// argsUsers, err := cast.ToStringE(args[1])
+			// if err != nil {
+			// 	return err
+			// }
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateTeam(clientCtx.GetFromAddress().String(), argsName, argsUsers)
+			msg := types.NewMsgCreateTeam(clientCtx.GetFromAddress().String(), argsName, []string{})
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -62,17 +64,18 @@ func CmdUpdateTeam() *cobra.Command {
 				return err
 			}
 
-			argsUsers, err := cast.ToStringE(args[2])
-			if err != nil {
-				return err
-			}
+			// TODO: Accept users from the command line.
+			// argsUsers, err := cast.ToSliceE(args[2])
+			// if err != nil {
+			// 	return err
+			// }
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateTeam(clientCtx.GetFromAddress().String(), id, argsName, argsUsers)
+			msg := types.NewMsgUpdateTeam(clientCtx.GetFromAddress().String(), id, argsName, []string{})
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

@@ -14,8 +14,8 @@ export const Team = {
         if (message.name !== '') {
             writer.uint32(26).string(message.name);
         }
-        if (message.users !== '') {
-            writer.uint32(34).string(message.users);
+        for (const v of message.users) {
+            writer.uint32(34).string(v);
         }
         return writer;
     },
@@ -23,6 +23,7 @@ export const Team = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseTeam };
+        message.users = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -36,7 +37,7 @@ export const Team = {
                     message.name = reader.string();
                     break;
                 case 4:
-                    message.users = reader.string();
+                    message.users.push(reader.string());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -47,6 +48,7 @@ export const Team = {
     },
     fromJSON(object) {
         const message = { ...baseTeam };
+        message.users = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
@@ -66,10 +68,9 @@ export const Team = {
             message.name = '';
         }
         if (object.users !== undefined && object.users !== null) {
-            message.users = String(object.users);
-        }
-        else {
-            message.users = '';
+            for (const e of object.users) {
+                message.users.push(String(e));
+            }
         }
         return message;
     },
@@ -78,11 +79,17 @@ export const Team = {
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
         message.name !== undefined && (obj.name = message.name);
-        message.users !== undefined && (obj.users = message.users);
+        if (message.users) {
+            obj.users = message.users.map((e) => e);
+        }
+        else {
+            obj.users = [];
+        }
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseTeam };
+        message.users = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
@@ -102,10 +109,9 @@ export const Team = {
             message.name = '';
         }
         if (object.users !== undefined && object.users !== null) {
-            message.users = object.users;
-        }
-        else {
-            message.users = '';
+            for (const e of object.users) {
+                message.users.push(e);
+            }
         }
         return message;
     }

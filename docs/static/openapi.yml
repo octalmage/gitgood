@@ -19297,7 +19297,9 @@ paths:
                     name:
                       type: string
                     users:
-                      type: string
+                      type: array
+                      items:
+                        type: string
               pagination:
                 type: object
                 properties:
@@ -19415,7 +19417,9 @@ paths:
                   name:
                     type: string
                   users:
-                    type: string
+                    type: array
+                    items:
+                      type: string
         default:
           description: An unexpected error response.
           schema:
@@ -29684,7 +29688,9 @@ definitions:
             name:
               type: string
             users:
-              type: string
+              type: array
+              items:
+                type: string
       pagination:
         type: object
         properties:
@@ -29724,7 +29730,9 @@ definitions:
           name:
             type: string
           users:
-            type: string
+            type: array
+            items:
+              type: string
   octalmage.gitgood.gitgood.Team:
     type: object
     properties:
@@ -29736,4 +29744,6 @@ definitions:
       name:
         type: string
       users:
-        type: string
+        type: array
+        items:
+          type: string

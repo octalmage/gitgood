@@ -4,7 +4,7 @@ export declare const protobufPackage = "octalmage.gitgood.gitgood";
 export interface MsgCreateTeam {
     creator: string;
     name: string;
-    users: string;
+    users: string[];
 }
 export interface MsgCreateTeamResponse {
     id: number;
@@ -13,7 +13,7 @@ export interface MsgUpdateTeam {
     creator: string;
     id: number;
     name: string;
-    users: string;
+    users: string[];
 }
 export interface MsgUpdateTeamResponse {
 }

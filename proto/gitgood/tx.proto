@@ -18,7 +18,7 @@ service Msg {
 message MsgCreateTeam {
   string creator = 1;
   string name = 2;
-  string users = 3;
+  repeated string users = 4;
 }
 
 message MsgCreateTeamResponse {
@@ -29,7 +29,7 @@ message MsgUpdateTeam {
   string creator = 1;
   uint64 id = 2;
   string name = 3;
-  string users = 4;
+  repeated string users = 4;
 }
 
 message MsgUpdateTeamResponse { }

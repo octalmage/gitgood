@@ -8,7 +8,7 @@ export const protobufPackage = 'octalmage.gitgood.gitgood'
 export interface MsgCreateTeam {
   creator: string
   name: string
-  users: string
+  users: string[]
 }
 
 export interface MsgCreateTeamResponse {
@@ -19,7 +19,7 @@ export interface MsgUpdateTeam {
   creator: string
   id: number
   name: string
-  users: string
+  users: string[]
 }
 
 export interface MsgUpdateTeamResponse {}
@@ -41,8 +41,8 @@ export const MsgCreateTeam = {
     if (message.name !== '') {
       writer.uint32(18).string(message.name)
     }
-    if (message.users !== '') {
-      writer.uint32(26).string(message.users)
+    for (const v of message.users) {
+      writer.uint32(34).string(v!)
     }
     return writer
   },
@@ -51,6 +51,7 @@ export const MsgCreateTeam = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseMsgCreateTeam } as MsgCreateTeam
+    message.users = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -60,8 +61,8 @@ export const MsgCreateTeam = {
         case 2:
           message.name = reader.string()
           break
-        case 3:
-          message.users = reader.string()
+        case 4:
+          message.users.push(reader.string())
           break
         default:
           reader.skipType(tag & 7)
@@ -73,6 +74,7 @@ export const MsgCreateTeam = {
 
   fromJSON(object: any): MsgCreateTeam {
     const message = { ...baseMsgCreateTeam } as MsgCreateTeam
+    message.users = []
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator)
     } else {
@@ -84,9 +86,9 @@ export const MsgCreateTeam = {
       message.name = ''
     }
     if (object.users !== undefined && object.users !== null) {
-      message.users = String(object.users)
-    } else {
-      message.users = ''
+      for (const e of object.users) {
+        message.users.push(String(e))
+      }
     }
     return message
   },
@@ -95,12 +97,17 @@ export const MsgCreateTeam = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.name !== undefined && (obj.name = message.name)
-    message.users !== undefined && (obj.users = message.users)
+    if (message.users) {
+      obj.users = message.users.map((e) => e)
+    } else {
+      obj.users = []
+    }
     return obj
   },
 
   fromPartial(object: DeepPartial<MsgCreateTeam>): MsgCreateTeam {
     const message = { ...baseMsgCreateTeam } as MsgCreateTeam
+    message.users = []
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator
     } else {
@@ -112,9 +119,9 @@ export const MsgCreateTeam = {
       message.name = ''
     }
     if (object.users !== undefined && object.users !== null) {
-      message.users = object.users
-    } else {
-      message.users = ''
+      for (const e of object.users) {
+        message.users.push(e)
+      }
     }
     return message
   }
@@ -188,8 +195,8 @@ export const MsgUpdateTeam = {
     if (message.name !== '') {
       writer.uint32(26).string(message.name)
     }
-    if (message.users !== '') {
-      writer.uint32(34).string(message.users)
+    for (const v of message.users) {
+      writer.uint32(34).string(v!)
     }
     return writer
   },
@@ -198,6 +205,7 @@ export const MsgUpdateTeam = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseMsgUpdateTeam } as MsgUpdateTeam
+    message.users = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
@@ -211,7 +219,7 @@ export const MsgUpdateTeam = {
           message.name = reader.string()
           break
         case 4:
-          message.users = reader.string()
+          message.users.push(reader.string())
           break
         default:
           reader.skipType(tag & 7)
@@ -223,6 +231,7 @@ export const MsgUpdateTeam = {
 
   fromJSON(object: any): MsgUpdateTeam {
     const message = { ...baseMsgUpdateTeam } as MsgUpdateTeam
+    message.users = []
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator)
     } else {
@@ -239,9 +248,9 @@ export const MsgUpdateTeam = {
       message.name = ''
     }
     if (object.users !== undefined && object.users !== null) {
-      message.users = String(object.users)
-    } else {
-      message.users = ''
+      for (const e of object.users) {
+        message.users.push(String(e))
+      }
     }
     return message
   },
@@ -251,12 +260,17 @@ export const MsgUpdateTeam = {
     message.creator !== undefined && (obj.creator = message.creator)
     message.id !== undefined && (obj.id = message.id)
     message.name !== undefined && (obj.name = message.name)
-    message.users !== undefined && (obj.users = message.users)
+    if (message.users) {
+      obj.users = message.users.map((e) => e)
+    } else {
+      obj.users = []
+    }
     return obj
   },
 
   fromPartial(object: DeepPartial<MsgUpdateTeam>): MsgUpdateTeam {
     const message = { ...baseMsgUpdateTeam } as MsgUpdateTeam
+    message.users = []
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator
     } else {
@@ -273,9 +287,9 @@ export const MsgUpdateTeam = {
       message.name = ''
     }
     if (object.users !== undefined && object.users !== null) {
-      message.users = object.users
-    } else {
-      message.users = ''
+      for (const e of object.users) {
+        message.users.push(e)
+      }
     }
     return message
   }

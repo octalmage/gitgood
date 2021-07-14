@@ -43,7 +43,7 @@ export interface GitgoodTeam {
   /** @format uint64 */
   id?: string;
   name?: string;
-  users?: string;
+  users?: string[];
 }
 
 export interface ProtobufAny {
