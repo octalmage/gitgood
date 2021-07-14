@@ -1,7 +1,7 @@
 accounts:
-  - name: faucet
-    coins: ["200000000exp"]
   - name: admin
+    coins: ["200000000exp"]
+  - name: faucet
     coins: ["200000000exp"]
 validator:
   name: admin
