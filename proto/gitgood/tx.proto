@@ -31,7 +31,6 @@ message MsgCreateAchievement {
   string creator = 1;
   string achievementID = 2;
   string owner = 3;
-  int32 createdAt = 4;
 }
 
 message MsgCreateAchievementResponse {
@@ -60,7 +59,6 @@ message MsgCreateGoal {
   string label = 2;
   int32 comparison = 3;
   int32 exp = 4;
-  int32 createdAt = 5;
 }
 
 message MsgCreateGoalResponse {

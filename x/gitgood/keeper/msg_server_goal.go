@@ -17,7 +17,6 @@ func (k msgServer) CreateGoal(goCtx context.Context, msg *types.MsgCreateGoal) (
 		Label:      msg.Label,
 		Comparison: msg.Comparison,
 		Exp:        msg.Exp,
-		CreatedAt:  msg.CreatedAt,
 	}
 
 	id := k.AppendGoal(

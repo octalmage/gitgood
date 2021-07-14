@@ -7,13 +7,12 @@ import (
 
 var _ sdk.Msg = &MsgCreateGoal{}
 
-func NewMsgCreateGoal(creator string, label string, comparison int32, exp int32, createdAt int32) *MsgCreateGoal {
+func NewMsgCreateGoal(creator string, label string, comparison int32, exp int32) *MsgCreateGoal {
 	return &MsgCreateGoal{
 		Creator:    creator,
 		Label:      label,
 		Comparison: comparison,
 		Exp:        exp,
-		CreatedAt:  createdAt,
 	}
 }
 

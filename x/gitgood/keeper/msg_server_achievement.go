@@ -16,7 +16,6 @@ func (k msgServer) CreateAchievement(goCtx context.Context, msg *types.MsgCreate
 		Creator:       msg.Creator,
 		AchievementID: msg.AchievementID,
 		Owner:         msg.Owner,
-		CreatedAt:     msg.CreatedAt,
 	}
 
 	id := k.AppendAchievement(

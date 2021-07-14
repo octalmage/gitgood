@@ -84,6 +84,7 @@ import (
 	"github.com/octalmage/gitgood/docs"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 	"github.com/octalmage/gitgood/x/gitgood"
 	gitgoodkeeper "github.com/octalmage/gitgood/x/gitgood/keeper"
@@ -329,6 +330,7 @@ func New(
 		appCodec,
 		keys[gitgoodtypes.StoreKey],
 		keys[gitgoodtypes.MemStoreKey],
+		app.BankKeeper,
 	)
 	gitgoodModule := gitgood.NewAppModule(appCodec, app.GitgoodKeeper)
 

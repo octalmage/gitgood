@@ -15,7 +15,7 @@ import (
 
 func CmdCreateAchievement() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-achievement [achievementID] [owner] [createdAt]",
+		Use:   "create-achievement [achievementID] [owner]",
 		Short: "Create a new achievement",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -27,17 +27,13 @@ func CmdCreateAchievement() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsCreatedAt, err := cast.ToInt32E(args[2])
-			if err != nil {
-				return err
-			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateAchievement(clientCtx.GetFromAddress().String(), argsAchievementID, argsOwner, argsCreatedAt)
+			msg := types.NewMsgCreateAchievement(clientCtx.GetFromAddress().String(), argsAchievementID, argsOwner)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

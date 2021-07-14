@@ -7,12 +7,11 @@ import (
 
 var _ sdk.Msg = &MsgCreateAchievement{}
 
-func NewMsgCreateAchievement(creator string, achievementID string, owner string, createdAt int32) *MsgCreateAchievement {
+func NewMsgCreateAchievement(creator string, achievementID string, owner string) *MsgCreateAchievement {
 	return &MsgCreateAchievement{
 		Creator:       creator,
 		AchievementID: achievementID,
 		Owner:         owner,
-		CreatedAt:     createdAt,
 	}
 }
 

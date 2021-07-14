@@ -15,7 +15,7 @@ import (
 
 func CmdCreateGoal() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-goal [label] [comparison] [exp] [createdAt]",
+		Use:   "create-goal [label] [comparison] [exp]",
 		Short: "Create a new goal",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -31,17 +31,13 @@ func CmdCreateGoal() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsCreatedAt, err := cast.ToInt32E(args[3])
-			if err != nil {
-				return err
-			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateGoal(clientCtx.GetFromAddress().String(), argsLabel, argsComparison, argsExp, argsCreatedAt)
+			msg := types.NewMsgCreateGoal(clientCtx.GetFromAddress().String(), argsLabel, argsComparison, argsExp)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
