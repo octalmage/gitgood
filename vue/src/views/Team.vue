@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<div class="container">
-			<h1>Home</h1>
+			<h1>Team</h1>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'Home',
+	name: 'Team',
 	computed: {
 		address() {
 			return this.$store.getters['common/wallet/address']
