@@ -5,6 +5,34 @@ import * as Long from 'long'
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateAchievement {
+  creator: string
+  achievementID: string
+  owner: string
+  createdAt: number
+}
+
+export interface MsgCreateAchievementResponse {
+  id: number
+}
+
+export interface MsgUpdateAchievement {
+  creator: string
+  id: number
+  achievementID: string
+  owner: string
+  createdAt: number
+}
+
+export interface MsgUpdateAchievementResponse {}
+
+export interface MsgDeleteAchievement {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteAchievementResponse {}
+
 export interface MsgCreateGoal {
   creator: string
   label: string
@@ -90,6 +118,438 @@ export interface MsgDeleteTeam {
 }
 
 export interface MsgDeleteTeamResponse {}
+
+const baseMsgCreateAchievement: object = { creator: '', achievementID: '', owner: '', createdAt: 0 }
+
+export const MsgCreateAchievement = {
+  encode(message: MsgCreateAchievement, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.achievementID !== '') {
+      writer.uint32(18).string(message.achievementID)
+    }
+    if (message.owner !== '') {
+      writer.uint32(26).string(message.owner)
+    }
+    if (message.createdAt !== 0) {
+      writer.uint32(32).int32(message.createdAt)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateAchievement {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateAchievement } as MsgCreateAchievement
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.achievementID = reader.string()
+          break
+        case 3:
+          message.owner = reader.string()
+          break
+        case 4:
+          message.createdAt = reader.int32()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateAchievement {
+    const message = { ...baseMsgCreateAchievement } as MsgCreateAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.achievementID !== undefined && object.achievementID !== null) {
+      message.achievementID = String(object.achievementID)
+    } else {
+      message.achievementID = ''
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = String(object.owner)
+    } else {
+      message.owner = ''
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = Number(object.createdAt)
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateAchievement): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.achievementID !== undefined && (obj.achievementID = message.achievementID)
+    message.owner !== undefined && (obj.owner = message.owner)
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateAchievement>): MsgCreateAchievement {
+    const message = { ...baseMsgCreateAchievement } as MsgCreateAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.achievementID !== undefined && object.achievementID !== null) {
+      message.achievementID = object.achievementID
+    } else {
+      message.achievementID = ''
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner
+    } else {
+      message.owner = ''
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = object.createdAt
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  }
+}
+
+const baseMsgCreateAchievementResponse: object = { id: 0 }
+
+export const MsgCreateAchievementResponse = {
+  encode(message: MsgCreateAchievementResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateAchievementResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateAchievementResponse } as MsgCreateAchievementResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateAchievementResponse {
+    const message = { ...baseMsgCreateAchievementResponse } as MsgCreateAchievementResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateAchievementResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateAchievementResponse>): MsgCreateAchievementResponse {
+    const message = { ...baseMsgCreateAchievementResponse } as MsgCreateAchievementResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateAchievement: object = { creator: '', id: 0, achievementID: '', owner: '', createdAt: 0 }
+
+export const MsgUpdateAchievement = {
+  encode(message: MsgUpdateAchievement, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.achievementID !== '') {
+      writer.uint32(26).string(message.achievementID)
+    }
+    if (message.owner !== '') {
+      writer.uint32(34).string(message.owner)
+    }
+    if (message.createdAt !== 0) {
+      writer.uint32(40).int32(message.createdAt)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateAchievement {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateAchievement } as MsgUpdateAchievement
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.achievementID = reader.string()
+          break
+        case 4:
+          message.owner = reader.string()
+          break
+        case 5:
+          message.createdAt = reader.int32()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateAchievement {
+    const message = { ...baseMsgUpdateAchievement } as MsgUpdateAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.achievementID !== undefined && object.achievementID !== null) {
+      message.achievementID = String(object.achievementID)
+    } else {
+      message.achievementID = ''
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = String(object.owner)
+    } else {
+      message.owner = ''
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = Number(object.createdAt)
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateAchievement): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.achievementID !== undefined && (obj.achievementID = message.achievementID)
+    message.owner !== undefined && (obj.owner = message.owner)
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateAchievement>): MsgUpdateAchievement {
+    const message = { ...baseMsgUpdateAchievement } as MsgUpdateAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.achievementID !== undefined && object.achievementID !== null) {
+      message.achievementID = object.achievementID
+    } else {
+      message.achievementID = ''
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner
+    } else {
+      message.owner = ''
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = object.createdAt
+    } else {
+      message.createdAt = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateAchievementResponse: object = {}
+
+export const MsgUpdateAchievementResponse = {
+  encode(_: MsgUpdateAchievementResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateAchievementResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateAchievementResponse } as MsgUpdateAchievementResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateAchievementResponse {
+    const message = { ...baseMsgUpdateAchievementResponse } as MsgUpdateAchievementResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateAchievementResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateAchievementResponse>): MsgUpdateAchievementResponse {
+    const message = { ...baseMsgUpdateAchievementResponse } as MsgUpdateAchievementResponse
+    return message
+  }
+}
+
+const baseMsgDeleteAchievement: object = { creator: '', id: 0 }
+
+export const MsgDeleteAchievement = {
+  encode(message: MsgDeleteAchievement, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteAchievement {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteAchievement } as MsgDeleteAchievement
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteAchievement {
+    const message = { ...baseMsgDeleteAchievement } as MsgDeleteAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteAchievement): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteAchievement>): MsgDeleteAchievement {
+    const message = { ...baseMsgDeleteAchievement } as MsgDeleteAchievement
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteAchievementResponse: object = {}
+
+export const MsgDeleteAchievementResponse = {
+  encode(_: MsgDeleteAchievementResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteAchievementResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteAchievementResponse } as MsgDeleteAchievementResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteAchievementResponse {
+    const message = { ...baseMsgDeleteAchievementResponse } as MsgDeleteAchievementResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteAchievementResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteAchievementResponse>): MsgDeleteAchievementResponse {
+    const message = { ...baseMsgDeleteAchievementResponse } as MsgDeleteAchievementResponse
+    return message
+  }
+}
 
 const baseMsgCreateGoal: object = { creator: '', label: '', comparison: 0, exp: 0, createdAt: 0 }
 
@@ -1438,6 +1898,9 @@ export const MsgDeleteTeamResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateAchievement(request: MsgCreateAchievement): Promise<MsgCreateAchievementResponse>
+  UpdateAchievement(request: MsgUpdateAchievement): Promise<MsgUpdateAchievementResponse>
+  DeleteAchievement(request: MsgDeleteAchievement): Promise<MsgDeleteAchievementResponse>
   CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>
   UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>
   DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>
@@ -1454,6 +1917,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateAchievement(request: MsgCreateAchievement): Promise<MsgCreateAchievementResponse> {
+    const data = MsgCreateAchievement.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateAchievement', data)
+    return promise.then((data) => MsgCreateAchievementResponse.decode(new Reader(data)))
+  }
+
+  UpdateAchievement(request: MsgUpdateAchievement): Promise<MsgUpdateAchievementResponse> {
+    const data = MsgUpdateAchievement.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'UpdateAchievement', data)
+    return promise.then((data) => MsgUpdateAchievementResponse.decode(new Reader(data)))
+  }
+
+  DeleteAchievement(request: MsgDeleteAchievement): Promise<MsgDeleteAchievementResponse> {
+    const data = MsgDeleteAchievement.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'DeleteAchievement', data)
+    return promise.then((data) => MsgDeleteAchievementResponse.decode(new Reader(data)))
+  }
+
   CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse> {
     const data = MsgCreateGoal.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateGoal', data)

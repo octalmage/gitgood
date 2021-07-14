@@ -39,3 +39,8 @@ const (
 	GoalKey      = "Goal-value-"
 	GoalCountKey = "Goal-count-"
 )
+
+const (
+	AchievementKey      = "Achievement-value-"
+	AchievementCountKey = "Achievement-count-"
+)

@@ -1,4 +1,5 @@
 import { Writer, Reader } from 'protobufjs/minimal';
+import { Achievement } from '../gitgood/achievement';
 import { Goal } from '../gitgood/goal';
 import { Stat } from '../gitgood/stat';
 import { Team } from '../gitgood/team';
@@ -6,6 +7,10 @@ export declare const protobufPackage = "octalmage.gitgood.gitgood";
 /** GenesisState defines the gitgood module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    achievementList: Achievement[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
+    achievementCount: number;
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     goalList: Goal[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     goalCount: number;

@@ -1,6 +1,30 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 export declare const protobufPackage = "octalmage.gitgood.gitgood";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateAchievement {
+    creator: string;
+    achievementID: string;
+    owner: string;
+    createdAt: number;
+}
+export interface MsgCreateAchievementResponse {
+    id: number;
+}
+export interface MsgUpdateAchievement {
+    creator: string;
+    id: number;
+    achievementID: string;
+    owner: string;
+    createdAt: number;
+}
+export interface MsgUpdateAchievementResponse {
+}
+export interface MsgDeleteAchievement {
+    creator: string;
+    id: number;
+}
+export interface MsgDeleteAchievementResponse {
+}
 export interface MsgCreateGoal {
     creator: string;
     label: string;
@@ -75,6 +99,48 @@ export interface MsgDeleteTeam {
 }
 export interface MsgDeleteTeamResponse {
 }
+export declare const MsgCreateAchievement: {
+    encode(message: MsgCreateAchievement, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateAchievement;
+    fromJSON(object: any): MsgCreateAchievement;
+    toJSON(message: MsgCreateAchievement): unknown;
+    fromPartial(object: DeepPartial<MsgCreateAchievement>): MsgCreateAchievement;
+};
+export declare const MsgCreateAchievementResponse: {
+    encode(message: MsgCreateAchievementResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateAchievementResponse;
+    fromJSON(object: any): MsgCreateAchievementResponse;
+    toJSON(message: MsgCreateAchievementResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateAchievementResponse>): MsgCreateAchievementResponse;
+};
+export declare const MsgUpdateAchievement: {
+    encode(message: MsgUpdateAchievement, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateAchievement;
+    fromJSON(object: any): MsgUpdateAchievement;
+    toJSON(message: MsgUpdateAchievement): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateAchievement>): MsgUpdateAchievement;
+};
+export declare const MsgUpdateAchievementResponse: {
+    encode(_: MsgUpdateAchievementResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateAchievementResponse;
+    fromJSON(_: any): MsgUpdateAchievementResponse;
+    toJSON(_: MsgUpdateAchievementResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateAchievementResponse>): MsgUpdateAchievementResponse;
+};
+export declare const MsgDeleteAchievement: {
+    encode(message: MsgDeleteAchievement, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteAchievement;
+    fromJSON(object: any): MsgDeleteAchievement;
+    toJSON(message: MsgDeleteAchievement): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteAchievement>): MsgDeleteAchievement;
+};
+export declare const MsgDeleteAchievementResponse: {
+    encode(_: MsgDeleteAchievementResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteAchievementResponse;
+    fromJSON(_: any): MsgDeleteAchievementResponse;
+    toJSON(_: MsgDeleteAchievementResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteAchievementResponse>): MsgDeleteAchievementResponse;
+};
 export declare const MsgCreateGoal: {
     encode(message: MsgCreateGoal, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateGoal;
@@ -204,6 +270,9 @@ export declare const MsgDeleteTeamResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateAchievement(request: MsgCreateAchievement): Promise<MsgCreateAchievementResponse>;
+    UpdateAchievement(request: MsgUpdateAchievement): Promise<MsgUpdateAchievementResponse>;
+    DeleteAchievement(request: MsgDeleteAchievement): Promise<MsgDeleteAchievementResponse>;
     CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>;
     UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>;
     DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>;
@@ -217,6 +286,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateAchievement(request: MsgCreateAchievement): Promise<MsgCreateAchievementResponse>;
+    UpdateAchievement(request: MsgUpdateAchievement): Promise<MsgUpdateAchievementResponse>;
+    DeleteAchievement(request: MsgDeleteAchievement): Promise<MsgDeleteAchievementResponse>;
     CreateGoal(request: MsgCreateGoal): Promise<MsgCreateGoalResponse>;
     UpdateGoal(request: MsgUpdateGoal): Promise<MsgUpdateGoalResponse>;
     DeleteGoal(request: MsgDeleteGoal): Promise<MsgDeleteGoalResponse>;

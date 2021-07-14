@@ -9,6 +9,18 @@
  * ---------------------------------------------------------------
  */
 
+export interface GitgoodAchievement {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  achievementID?: string;
+  owner?: string;
+
+  /** @format int32 */
+  createdAt?: number;
+}
+
 export interface GitgoodGoal {
   creator?: string;
 
@@ -26,6 +38,11 @@ export interface GitgoodGoal {
   createdAt?: number;
 }
 
+export interface GitgoodMsgCreateAchievementResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
 export interface GitgoodMsgCreateGoalResponse {
   /** @format uint64 */
   id?: string;
@@ -41,17 +58,36 @@ export interface GitgoodMsgCreateTeamResponse {
   id?: string;
 }
 
+export type GitgoodMsgDeleteAchievementResponse = object;
+
 export type GitgoodMsgDeleteGoalResponse = object;
 
 export type GitgoodMsgDeleteStatResponse = object;
 
 export type GitgoodMsgDeleteTeamResponse = object;
 
+export type GitgoodMsgUpdateAchievementResponse = object;
+
 export type GitgoodMsgUpdateGoalResponse = object;
 
 export type GitgoodMsgUpdateStatResponse = object;
 
 export type GitgoodMsgUpdateTeamResponse = object;
+
+export interface GitgoodQueryAllAchievementResponse {
+  Achievement?: GitgoodAchievement[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
 
 export interface GitgoodQueryAllGoalResponse {
   Goal?: GitgoodGoal[];
@@ -96,6 +132,10 @@ export interface GitgoodQueryAllTeamResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface GitgoodQueryGetAchievementResponse {
+  Achievement?: GitgoodAchievement;
 }
 
 export interface GitgoodQueryGetGoalResponse {
@@ -401,10 +441,51 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title gitgood/genesis.proto
+ * @title gitgood/achievement.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryAchievementAll
+   * @summary Queries a list of achievement items.
+   * @request GET:/octalmage/gitgood/gitgood/achievement
+   */
+  queryAchievementAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<GitgoodQueryAllAchievementResponse, RpcStatus>({
+      path: `/octalmage/gitgood/gitgood/achievement`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryAchievement
+   * @summary Queries a achievement by id.
+   * @request GET:/octalmage/gitgood/gitgood/achievement/{id}
+   */
+  queryAchievement = (id: string, params: RequestParams = {}) =>
+    this.request<GitgoodQueryGetAchievementResponse, RpcStatus>({
+      path: `/octalmage/gitgood/gitgood/achievement/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

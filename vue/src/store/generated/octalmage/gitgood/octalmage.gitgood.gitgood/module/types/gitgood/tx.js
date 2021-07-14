@@ -2,6 +2,426 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'octalmage.gitgood.gitgood';
+const baseMsgCreateAchievement = { creator: '', achievementID: '', owner: '', createdAt: 0 };
+export const MsgCreateAchievement = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.achievementID !== '') {
+            writer.uint32(18).string(message.achievementID);
+        }
+        if (message.owner !== '') {
+            writer.uint32(26).string(message.owner);
+        }
+        if (message.createdAt !== 0) {
+            writer.uint32(32).int32(message.createdAt);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateAchievement };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.achievementID = reader.string();
+                    break;
+                case 3:
+                    message.owner = reader.string();
+                    break;
+                case 4:
+                    message.createdAt = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.achievementID !== undefined && object.achievementID !== null) {
+            message.achievementID = String(object.achievementID);
+        }
+        else {
+            message.achievementID = '';
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = String(object.owner);
+        }
+        else {
+            message.owner = '';
+        }
+        if (object.createdAt !== undefined && object.createdAt !== null) {
+            message.createdAt = Number(object.createdAt);
+        }
+        else {
+            message.createdAt = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.achievementID !== undefined && (obj.achievementID = message.achievementID);
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.createdAt !== undefined && (obj.createdAt = message.createdAt);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.achievementID !== undefined && object.achievementID !== null) {
+            message.achievementID = object.achievementID;
+        }
+        else {
+            message.achievementID = '';
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = object.owner;
+        }
+        else {
+            message.owner = '';
+        }
+        if (object.createdAt !== undefined && object.createdAt !== null) {
+            message.createdAt = object.createdAt;
+        }
+        else {
+            message.createdAt = 0;
+        }
+        return message;
+    }
+};
+const baseMsgCreateAchievementResponse = { id: 0 };
+export const MsgCreateAchievementResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateAchievementResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateAchievementResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateAchievementResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgUpdateAchievement = { creator: '', id: 0, achievementID: '', owner: '', createdAt: 0 };
+export const MsgUpdateAchievement = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        if (message.achievementID !== '') {
+            writer.uint32(26).string(message.achievementID);
+        }
+        if (message.owner !== '') {
+            writer.uint32(34).string(message.owner);
+        }
+        if (message.createdAt !== 0) {
+            writer.uint32(40).int32(message.createdAt);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateAchievement };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.achievementID = reader.string();
+                    break;
+                case 4:
+                    message.owner = reader.string();
+                    break;
+                case 5:
+                    message.createdAt = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.achievementID !== undefined && object.achievementID !== null) {
+            message.achievementID = String(object.achievementID);
+        }
+        else {
+            message.achievementID = '';
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = String(object.owner);
+        }
+        else {
+            message.owner = '';
+        }
+        if (object.createdAt !== undefined && object.createdAt !== null) {
+            message.createdAt = Number(object.createdAt);
+        }
+        else {
+            message.createdAt = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        message.achievementID !== undefined && (obj.achievementID = message.achievementID);
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.createdAt !== undefined && (obj.createdAt = message.createdAt);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.achievementID !== undefined && object.achievementID !== null) {
+            message.achievementID = object.achievementID;
+        }
+        else {
+            message.achievementID = '';
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = object.owner;
+        }
+        else {
+            message.owner = '';
+        }
+        if (object.createdAt !== undefined && object.createdAt !== null) {
+            message.createdAt = object.createdAt;
+        }
+        else {
+            message.createdAt = 0;
+        }
+        return message;
+    }
+};
+const baseMsgUpdateAchievementResponse = {};
+export const MsgUpdateAchievementResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateAchievementResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUpdateAchievementResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUpdateAchievementResponse };
+        return message;
+    }
+};
+const baseMsgDeleteAchievement = { creator: '', id: 0 };
+export const MsgDeleteAchievement = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteAchievement };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteAchievement };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgDeleteAchievementResponse = {};
+export const MsgDeleteAchievementResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteAchievementResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgDeleteAchievementResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgDeleteAchievementResponse };
+        return message;
+    }
+};
 const baseMsgCreateGoal = { creator: '', label: '', comparison: 0, exp: 0, createdAt: 0 };
 export const MsgCreateGoal = {
     encode(message, writer = Writer.create()) {
@@ -1315,6 +1735,21 @@ export const MsgDeleteTeamResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CreateAchievement(request) {
+        const data = MsgCreateAchievement.encode(request).finish();
+        const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateAchievement', data);
+        return promise.then((data) => MsgCreateAchievementResponse.decode(new Reader(data)));
+    }
+    UpdateAchievement(request) {
+        const data = MsgUpdateAchievement.encode(request).finish();
+        const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'UpdateAchievement', data);
+        return promise.then((data) => MsgUpdateAchievementResponse.decode(new Reader(data)));
+    }
+    DeleteAchievement(request) {
+        const data = MsgDeleteAchievement.encode(request).finish();
+        const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'DeleteAchievement', data);
+        return promise.then((data) => MsgDeleteAchievementResponse.decode(new Reader(data)));
     }
     CreateGoal(request) {
         const data = MsgCreateGoal.encode(request).finish();

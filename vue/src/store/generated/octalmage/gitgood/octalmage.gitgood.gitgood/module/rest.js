@@ -130,12 +130,41 @@ export class HttpClient {
     }
 }
 /**
- * @title gitgood/genesis.proto
+ * @title gitgood/achievement.proto
  * @version version not set
  */
 export class Api extends HttpClient {
     constructor() {
         super(...arguments);
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryAchievementAll
+         * @summary Queries a list of achievement items.
+         * @request GET:/octalmage/gitgood/gitgood/achievement
+         */
+        this.queryAchievementAll = (query, params = {}) => this.request({
+            path: `/octalmage/gitgood/gitgood/achievement`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryAchievement
+         * @summary Queries a achievement by id.
+         * @request GET:/octalmage/gitgood/gitgood/achievement/{id}
+         */
+        this.queryAchievement = (id, params = {}) => this.request({
+            path: `/octalmage/gitgood/gitgood/achievement/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
         /**
          * No description
          *

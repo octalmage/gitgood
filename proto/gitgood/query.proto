@@ -4,6 +4,7 @@ package octalmage.gitgood.gitgood;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "gitgood/achievement.proto";
 import "gitgood/goal.proto";
 import "gitgood/stat.proto";
 import "gitgood/team.proto";
@@ -13,6 +14,17 @@ option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a achievement by id.
+	rpc Achievement(QueryGetAchievementRequest) returns (QueryGetAchievementResponse) {
+		option (google.api.http).get = "/octalmage/gitgood/gitgood/achievement/{id}";
+	}
+
+	// Queries a list of achievement items.
+	rpc AchievementAll(QueryAllAchievementRequest) returns (QueryAllAchievementResponse) {
+		option (google.api.http).get = "/octalmage/gitgood/gitgood/achievement";
+	}
+
 
 	// Queries a goal by id.
 	rpc Goal(QueryGetGoalRequest) returns (QueryGetGoalResponse) {
@@ -49,6 +61,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetAchievementRequest {
+	uint64 id = 1;
+}
+
+message QueryGetAchievementResponse {
+	Achievement Achievement = 1;
+}
+
+message QueryAllAchievementRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAchievementResponse {
+	repeated Achievement Achievement = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetGoalRequest {
 	uint64 id = 1;
 }

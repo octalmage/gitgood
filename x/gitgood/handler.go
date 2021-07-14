@@ -18,6 +18,18 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 
 		switch msg := msg.(type) {
 		// this line is used by starport scaffolding # 1
+		case *types.MsgCreateAchievement:
+			res, err := msgServer.CreateAchievement(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgUpdateAchievement:
+			res, err := msgServer.UpdateAchievement(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgDeleteAchievement:
+			res, err := msgServer.DeleteAchievement(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
 		case *types.MsgCreateGoal:
 			res, err := msgServer.CreateGoal(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

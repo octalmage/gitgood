@@ -9,6 +9,10 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateAchievement{}, "gitgood/CreateAchievement", nil)
+	cdc.RegisterConcrete(&MsgUpdateAchievement{}, "gitgood/UpdateAchievement", nil)
+	cdc.RegisterConcrete(&MsgDeleteAchievement{}, "gitgood/DeleteAchievement", nil)
+
 	cdc.RegisterConcrete(&MsgCreateGoal{}, "gitgood/CreateGoal", nil)
 	cdc.RegisterConcrete(&MsgUpdateGoal{}, "gitgood/UpdateGoal", nil)
 	cdc.RegisterConcrete(&MsgDeleteGoal{}, "gitgood/DeleteGoal", nil)
@@ -25,6 +29,11 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateAchievement{},
+		&MsgUpdateAchievement{},
+		&MsgDeleteAchievement{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateGoal{},
 		&MsgUpdateGoal{},

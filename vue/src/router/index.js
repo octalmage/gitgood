@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '@/views/Index.vue'
-import Types from '@/views/Types.vue'
+import Admin from '@/views/Admin.vue'
+import Home from '@/views/Home.vue'
 
 const routerHistory = createWebHistory()
 const routes = [
 	{
 		path: '/',
-		component: Types
+		component: Home,
+	},
+	{
+		path: '/admin',
+		component: Admin,
 	},
 	{ path: '/wallet', component: Index },
 ]

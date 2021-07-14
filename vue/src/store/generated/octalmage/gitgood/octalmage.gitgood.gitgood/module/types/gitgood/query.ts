@@ -1,14 +1,32 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { Goal } from '../gitgood/goal'
+import { Achievement } from '../gitgood/achievement'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { Goal } from '../gitgood/goal'
 import { Stat } from '../gitgood/stat'
 import { Team } from '../gitgood/team'
 
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetAchievementRequest {
+  id: number
+}
+
+export interface QueryGetAchievementResponse {
+  Achievement: Achievement | undefined
+}
+
+export interface QueryAllAchievementRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllAchievementResponse {
+  Achievement: Achievement[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetGoalRequest {
   id: number
 }
@@ -58,6 +76,250 @@ export interface QueryAllTeamRequest {
 export interface QueryAllTeamResponse {
   Team: Team[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetAchievementRequest: object = { id: 0 }
+
+export const QueryGetAchievementRequest = {
+  encode(message: QueryGetAchievementRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAchievementRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetAchievementRequest } as QueryGetAchievementRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetAchievementRequest {
+    const message = { ...baseQueryGetAchievementRequest } as QueryGetAchievementRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetAchievementRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetAchievementRequest>): QueryGetAchievementRequest {
+    const message = { ...baseQueryGetAchievementRequest } as QueryGetAchievementRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetAchievementResponse: object = {}
+
+export const QueryGetAchievementResponse = {
+  encode(message: QueryGetAchievementResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Achievement !== undefined) {
+      Achievement.encode(message.Achievement, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAchievementResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetAchievementResponse } as QueryGetAchievementResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Achievement = Achievement.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetAchievementResponse {
+    const message = { ...baseQueryGetAchievementResponse } as QueryGetAchievementResponse
+    if (object.Achievement !== undefined && object.Achievement !== null) {
+      message.Achievement = Achievement.fromJSON(object.Achievement)
+    } else {
+      message.Achievement = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetAchievementResponse): unknown {
+    const obj: any = {}
+    message.Achievement !== undefined && (obj.Achievement = message.Achievement ? Achievement.toJSON(message.Achievement) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetAchievementResponse>): QueryGetAchievementResponse {
+    const message = { ...baseQueryGetAchievementResponse } as QueryGetAchievementResponse
+    if (object.Achievement !== undefined && object.Achievement !== null) {
+      message.Achievement = Achievement.fromPartial(object.Achievement)
+    } else {
+      message.Achievement = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllAchievementRequest: object = {}
+
+export const QueryAllAchievementRequest = {
+  encode(message: QueryAllAchievementRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllAchievementRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllAchievementRequest } as QueryAllAchievementRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllAchievementRequest {
+    const message = { ...baseQueryAllAchievementRequest } as QueryAllAchievementRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllAchievementRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllAchievementRequest>): QueryAllAchievementRequest {
+    const message = { ...baseQueryAllAchievementRequest } as QueryAllAchievementRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllAchievementResponse: object = {}
+
+export const QueryAllAchievementResponse = {
+  encode(message: QueryAllAchievementResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.Achievement) {
+      Achievement.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllAchievementResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllAchievementResponse } as QueryAllAchievementResponse
+    message.Achievement = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Achievement.push(Achievement.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllAchievementResponse {
+    const message = { ...baseQueryAllAchievementResponse } as QueryAllAchievementResponse
+    message.Achievement = []
+    if (object.Achievement !== undefined && object.Achievement !== null) {
+      for (const e of object.Achievement) {
+        message.Achievement.push(Achievement.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllAchievementResponse): unknown {
+    const obj: any = {}
+    if (message.Achievement) {
+      obj.Achievement = message.Achievement.map((e) => (e ? Achievement.toJSON(e) : undefined))
+    } else {
+      obj.Achievement = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllAchievementResponse>): QueryAllAchievementResponse {
+    const message = { ...baseQueryAllAchievementResponse } as QueryAllAchievementResponse
+    message.Achievement = []
+    if (object.Achievement !== undefined && object.Achievement !== null) {
+      for (const e of object.Achievement) {
+        message.Achievement.push(Achievement.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetGoalRequest: object = { id: 0 }
@@ -794,6 +1056,10 @@ export const QueryAllTeamResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a achievement by id. */
+  Achievement(request: QueryGetAchievementRequest): Promise<QueryGetAchievementResponse>
+  /** Queries a list of achievement items. */
+  AchievementAll(request: QueryAllAchievementRequest): Promise<QueryAllAchievementResponse>
   /** Queries a goal by id. */
   Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse>
   /** Queries a list of goal items. */
@@ -813,6 +1079,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  Achievement(request: QueryGetAchievementRequest): Promise<QueryGetAchievementResponse> {
+    const data = QueryGetAchievementRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Achievement', data)
+    return promise.then((data) => QueryGetAchievementResponse.decode(new Reader(data)))
+  }
+
+  AchievementAll(request: QueryAllAchievementRequest): Promise<QueryAllAchievementResponse> {
+    const data = QueryAllAchievementRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'AchievementAll', data)
+    return promise.then((data) => QueryAllAchievementResponse.decode(new Reader(data)))
+  }
+
   Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse> {
     const data = QueryGetGoalRequest.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Goal', data)

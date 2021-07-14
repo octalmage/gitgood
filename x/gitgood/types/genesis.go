@@ -13,9 +13,10 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
-		GoalList: []*Goal{},
-		StatList: []*Stat{},
-		TeamList: []*Team{},
+		AchievementList: []*Achievement{},
+		GoalList:        []*Goal{},
+		StatList:        []*Stat{},
+		TeamList:        []*Team{},
 	}
 }
 
@@ -25,6 +26,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in achievement
+	achievementIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.AchievementList {
+		if _, ok := achievementIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for achievement")
+		}
+		achievementIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in goal
 	goalIdMap := make(map[uint64]bool)
 

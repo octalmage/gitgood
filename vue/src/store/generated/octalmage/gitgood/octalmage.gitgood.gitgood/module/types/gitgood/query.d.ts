@@ -1,10 +1,24 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { Goal } from '../gitgood/goal';
+import { Achievement } from '../gitgood/achievement';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { Goal } from '../gitgood/goal';
 import { Stat } from '../gitgood/stat';
 import { Team } from '../gitgood/team';
 export declare const protobufPackage = "octalmage.gitgood.gitgood";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetAchievementRequest {
+    id: number;
+}
+export interface QueryGetAchievementResponse {
+    Achievement: Achievement | undefined;
+}
+export interface QueryAllAchievementRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllAchievementResponse {
+    Achievement: Achievement[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetGoalRequest {
     id: number;
 }
@@ -44,6 +58,34 @@ export interface QueryAllTeamResponse {
     Team: Team[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetAchievementRequest: {
+    encode(message: QueryGetAchievementRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAchievementRequest;
+    fromJSON(object: any): QueryGetAchievementRequest;
+    toJSON(message: QueryGetAchievementRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetAchievementRequest>): QueryGetAchievementRequest;
+};
+export declare const QueryGetAchievementResponse: {
+    encode(message: QueryGetAchievementResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAchievementResponse;
+    fromJSON(object: any): QueryGetAchievementResponse;
+    toJSON(message: QueryGetAchievementResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetAchievementResponse>): QueryGetAchievementResponse;
+};
+export declare const QueryAllAchievementRequest: {
+    encode(message: QueryAllAchievementRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAchievementRequest;
+    fromJSON(object: any): QueryAllAchievementRequest;
+    toJSON(message: QueryAllAchievementRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllAchievementRequest>): QueryAllAchievementRequest;
+};
+export declare const QueryAllAchievementResponse: {
+    encode(message: QueryAllAchievementResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAchievementResponse;
+    fromJSON(object: any): QueryAllAchievementResponse;
+    toJSON(message: QueryAllAchievementResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllAchievementResponse>): QueryAllAchievementResponse;
+};
 export declare const QueryGetGoalRequest: {
     encode(message: QueryGetGoalRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetGoalRequest;
@@ -130,6 +172,10 @@ export declare const QueryAllTeamResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a achievement by id. */
+    Achievement(request: QueryGetAchievementRequest): Promise<QueryGetAchievementResponse>;
+    /** Queries a list of achievement items. */
+    AchievementAll(request: QueryAllAchievementRequest): Promise<QueryAllAchievementResponse>;
     /** Queries a goal by id. */
     Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse>;
     /** Queries a list of goal items. */
@@ -146,6 +192,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    Achievement(request: QueryGetAchievementRequest): Promise<QueryGetAchievementResponse>;
+    AchievementAll(request: QueryAllAchievementRequest): Promise<QueryAllAchievementResponse>;
     Goal(request: QueryGetGoalRequest): Promise<QueryGetGoalResponse>;
     GoalAll(request: QueryAllGoalRequest): Promise<QueryAllGoalResponse>;
     Stat(request: QueryGetStatRequest): Promise<QueryGetStatResponse>;
