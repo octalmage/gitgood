@@ -5,7 +5,7 @@
 	>
 		<template v-slot:default>
 			<SpLinkIcon link="/" text="Dashboard" icon="Dashboard" />
-			<SpLinkIcon link="/types" text="Custom Type" icon="Form" />
+			<SpLinkIcon link="/types" text="Teams" icon="Form" />
 			<SpLinkIcon link="/relayers" text="Relayers" icon="Transactions" />
 			<div class="sp-dash"></div>
 			<SpLinkIcon
