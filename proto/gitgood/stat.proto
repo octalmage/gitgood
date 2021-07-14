@@ -11,5 +11,6 @@ message Stat {
   int32 statType = 3; 
   int32 initial = 4; 
   int32 final = 5; 
-  string owner = 6; 
+  string owner = 6;
+  int64 createdAt = 7;
 }

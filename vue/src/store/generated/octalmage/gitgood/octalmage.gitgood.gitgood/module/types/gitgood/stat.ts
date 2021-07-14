@@ -11,9 +11,10 @@ export interface Stat {
   initial: number
   final: number
   owner: string
+  createdAt: number
 }
 
-const baseStat: object = { creator: '', id: 0, statType: 0, initial: 0, final: 0, owner: '' }
+const baseStat: object = { creator: '', id: 0, statType: 0, initial: 0, final: 0, owner: '', createdAt: 0 }
 
 export const Stat = {
   encode(message: Stat, writer: Writer = Writer.create()): Writer {
@@ -34,6 +35,9 @@ export const Stat = {
     }
     if (message.owner !== '') {
       writer.uint32(50).string(message.owner)
+    }
+    if (message.createdAt !== 0) {
+      writer.uint32(56).int64(message.createdAt)
     }
     return writer
   },
@@ -62,6 +66,9 @@ export const Stat = {
           break
         case 6:
           message.owner = reader.string()
+          break
+        case 7:
+          message.createdAt = longToNumber(reader.int64() as Long)
           break
         default:
           reader.skipType(tag & 7)
@@ -103,6 +110,11 @@ export const Stat = {
     } else {
       message.owner = ''
     }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = Number(object.createdAt)
+    } else {
+      message.createdAt = 0
+    }
     return message
   },
 
@@ -114,6 +126,7 @@ export const Stat = {
     message.initial !== undefined && (obj.initial = message.initial)
     message.final !== undefined && (obj.final = message.final)
     message.owner !== undefined && (obj.owner = message.owner)
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt)
     return obj
   },
 
@@ -148,6 +161,11 @@ export const Stat = {
       message.owner = object.owner
     } else {
       message.owner = ''
+    }
+    if (object.createdAt !== undefined && object.createdAt !== null) {
+      message.createdAt = object.createdAt
+    } else {
+      message.createdAt = 0
     }
     return message
   }

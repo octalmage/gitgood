@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -13,11 +14,12 @@ func (k msgServer) CreateStat(goCtx context.Context, msg *types.MsgCreateStat) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var stat = types.Stat{
-		Creator:  msg.Creator,
-		StatType: msg.StatType,
-		Initial:  msg.Initial,
-		Final:    msg.Final,
-		Owner:    msg.Owner,
+		Creator:   msg.Creator,
+		StatType:  msg.StatType,
+		Initial:   msg.Initial,
+		Final:     msg.Final,
+		Owner:     msg.Owner,
+		CreatedAt: time.Now().Unix(),
 	}
 
 	id := k.AppendStat(

@@ -7,6 +7,7 @@ export interface Stat {
     initial: number;
     final: number;
     owner: string;
+    createdAt: number;
 }
 export declare const Stat: {
     encode(message: Stat, writer?: Writer): Writer;

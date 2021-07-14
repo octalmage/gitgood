@@ -80,6 +80,9 @@ export interface GitgoodStat {
   /** @format int32 */
   final?: number;
   owner?: string;
+
+  /** @format int64 */
+  createdAt?: string;
 }
 
 export interface GitgoodTeam {
