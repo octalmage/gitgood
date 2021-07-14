@@ -3,17 +3,20 @@
     <div class="container">
       <h1>Home</h1>
       <Leaderboard v-bind:items="teams" />
+			<AddTeamForm />
     </div>
   </div>
 </template>
 
 <script>
 import Leaderboard from '../components/Leaderboard'
+import AddTeamForm from '../components/AddTeamForm.vue'
 
 export default {
   name: 'Home',
   components: {
-    Leaderboard
+    Leaderboard,
+		AddTeamForm,
   },
   computed: {
     teams() {
