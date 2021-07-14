@@ -10,7 +10,7 @@
 		<SpType modulePath="octalmage.gitgood.gitgood" moduleType="Achievement"  />
 		<SpType modulePath="octalmage.gitgood.gitgood" moduleType="Goal"  />
 		<SpType modulePath="octalmage.gitgood.gitgood" moduleType="Stat"  />
-      <SpType modulePath="octalmage.gitgood.gitgood" moduleType="Team" />
+    <SpType modulePath="octalmage.gitgood.gitgood" moduleType="Team" />
     </div>
   </div>
 </template>
