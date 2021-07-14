@@ -3,12 +3,18 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgUpdateTeam } from "./types/gitgood/tx";
-import { MsgCreateTeam } from "./types/gitgood/tx";
+import { MsgDeleteStat } from "./types/gitgood/tx";
 import { MsgDeleteTeam } from "./types/gitgood/tx";
+import { MsgCreateStat } from "./types/gitgood/tx";
+import { MsgUpdateStat } from "./types/gitgood/tx";
+import { MsgCreateTeam } from "./types/gitgood/tx";
 const types = [
     ["/octalmage.gitgood.gitgood.MsgUpdateTeam", MsgUpdateTeam],
-    ["/octalmage.gitgood.gitgood.MsgCreateTeam", MsgCreateTeam],
+    ["/octalmage.gitgood.gitgood.MsgDeleteStat", MsgDeleteStat],
     ["/octalmage.gitgood.gitgood.MsgDeleteTeam", MsgDeleteTeam],
+    ["/octalmage.gitgood.gitgood.MsgCreateStat", MsgCreateStat],
+    ["/octalmage.gitgood.gitgood.MsgUpdateStat", MsgUpdateStat],
+    ["/octalmage.gitgood.gitgood.MsgCreateTeam", MsgCreateTeam],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -24,8 +30,11 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
         msgUpdateTeam: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgUpdateTeam", value: data }),
-        msgCreateTeam: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateTeam", value: data }),
+        msgDeleteStat: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgDeleteStat", value: data }),
         msgDeleteTeam: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgDeleteTeam", value: data }),
+        msgCreateStat: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateStat", value: data }),
+        msgUpdateStat: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgUpdateStat", value: data }),
+        msgCreateTeam: (data) => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateTeam", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

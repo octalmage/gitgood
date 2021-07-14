@@ -1,9 +1,28 @@
+export interface GitgoodMsgCreateStatResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export interface GitgoodMsgCreateTeamResponse {
     /** @format uint64 */
     id?: string;
 }
+export declare type GitgoodMsgDeleteStatResponse = object;
 export declare type GitgoodMsgDeleteTeamResponse = object;
+export declare type GitgoodMsgUpdateStatResponse = object;
 export declare type GitgoodMsgUpdateTeamResponse = object;
+export interface GitgoodQueryAllStatResponse {
+    Stat?: GitgoodStat[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface GitgoodQueryAllTeamResponse {
     Team?: GitgoodTeam[];
     /**
@@ -17,8 +36,23 @@ export interface GitgoodQueryAllTeamResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface GitgoodQueryGetStatResponse {
+    Stat?: GitgoodStat;
+}
 export interface GitgoodQueryGetTeamResponse {
     Team?: GitgoodTeam;
+}
+export interface GitgoodStat {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    /** @format int32 */
+    statType?: number;
+    /** @format int32 */
+    initial?: number;
+    /** @format int32 */
+    final?: number;
+    owner?: string;
 }
 export interface GitgoodTeam {
     creator?: string;
@@ -146,6 +180,29 @@ export declare class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryStatAll
+     * @summary Queries a list of stat items.
+     * @request GET:/octalmage/gitgood/gitgood/stat
+     */
+    queryStatAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<GitgoodQueryAllStatResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryStat
+     * @summary Queries a stat by id.
+     * @request GET:/octalmage/gitgood/gitgood/stat/{id}
+     */
+    queryStat: (id: string, params?: RequestParams) => Promise<HttpResponse<GitgoodQueryGetStatResponse, RpcStatus>>;
     /**
      * No description
      *

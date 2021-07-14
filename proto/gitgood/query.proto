@@ -4,6 +4,7 @@ package octalmage.gitgood.gitgood;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "gitgood/stat.proto";
 import "gitgood/team.proto";
 
 option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
@@ -11,6 +12,17 @@ option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a stat by id.
+	rpc Stat(QueryGetStatRequest) returns (QueryGetStatResponse) {
+		option (google.api.http).get = "/octalmage/gitgood/gitgood/stat/{id}";
+	}
+
+	// Queries a list of stat items.
+	rpc StatAll(QueryAllStatRequest) returns (QueryAllStatResponse) {
+		option (google.api.http).get = "/octalmage/gitgood/gitgood/stat";
+	}
+
 
 	// Queries a team by id.
 	rpc Team(QueryGetTeamRequest) returns (QueryGetTeamResponse) {
@@ -25,6 +37,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetStatRequest {
+	uint64 id = 1;
+}
+
+message QueryGetStatResponse {
+	Stat Stat = 1;
+}
+
+message QueryAllStatRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllStatResponse {
+	repeated Stat Stat = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetTeamRequest {
 	uint64 id = 1;
 }

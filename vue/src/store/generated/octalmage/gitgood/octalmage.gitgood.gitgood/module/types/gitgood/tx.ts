@@ -5,6 +5,36 @@ import * as Long from 'long'
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateStat {
+  creator: string
+  statType: number
+  initial: number
+  final: number
+  owner: string
+}
+
+export interface MsgCreateStatResponse {
+  id: number
+}
+
+export interface MsgUpdateStat {
+  creator: string
+  id: number
+  statType: number
+  initial: number
+  final: number
+  owner: string
+}
+
+export interface MsgUpdateStatResponse {}
+
+export interface MsgDeleteStat {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteStatResponse {}
+
 export interface MsgCreateTeam {
   creator: string
   name: string
@@ -30,6 +60,472 @@ export interface MsgDeleteTeam {
 }
 
 export interface MsgDeleteTeamResponse {}
+
+const baseMsgCreateStat: object = { creator: '', statType: 0, initial: 0, final: 0, owner: '' }
+
+export const MsgCreateStat = {
+  encode(message: MsgCreateStat, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.statType !== 0) {
+      writer.uint32(16).int32(message.statType)
+    }
+    if (message.initial !== 0) {
+      writer.uint32(24).int32(message.initial)
+    }
+    if (message.final !== 0) {
+      writer.uint32(32).int32(message.final)
+    }
+    if (message.owner !== '') {
+      writer.uint32(42).string(message.owner)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateStat {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateStat } as MsgCreateStat
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.statType = reader.int32()
+          break
+        case 3:
+          message.initial = reader.int32()
+          break
+        case 4:
+          message.final = reader.int32()
+          break
+        case 5:
+          message.owner = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateStat {
+    const message = { ...baseMsgCreateStat } as MsgCreateStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = Number(object.statType)
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = Number(object.initial)
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = Number(object.final)
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = String(object.owner)
+    } else {
+      message.owner = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateStat): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.statType !== undefined && (obj.statType = message.statType)
+    message.initial !== undefined && (obj.initial = message.initial)
+    message.final !== undefined && (obj.final = message.final)
+    message.owner !== undefined && (obj.owner = message.owner)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateStat>): MsgCreateStat {
+    const message = { ...baseMsgCreateStat } as MsgCreateStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = object.statType
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = object.initial
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = object.final
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner
+    } else {
+      message.owner = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateStatResponse: object = { id: 0 }
+
+export const MsgCreateStatResponse = {
+  encode(message: MsgCreateStatResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateStatResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateStatResponse } as MsgCreateStatResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateStatResponse {
+    const message = { ...baseMsgCreateStatResponse } as MsgCreateStatResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateStatResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateStatResponse>): MsgCreateStatResponse {
+    const message = { ...baseMsgCreateStatResponse } as MsgCreateStatResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateStat: object = { creator: '', id: 0, statType: 0, initial: 0, final: 0, owner: '' }
+
+export const MsgUpdateStat = {
+  encode(message: MsgUpdateStat, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.statType !== 0) {
+      writer.uint32(24).int32(message.statType)
+    }
+    if (message.initial !== 0) {
+      writer.uint32(32).int32(message.initial)
+    }
+    if (message.final !== 0) {
+      writer.uint32(40).int32(message.final)
+    }
+    if (message.owner !== '') {
+      writer.uint32(50).string(message.owner)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateStat {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateStat } as MsgUpdateStat
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.statType = reader.int32()
+          break
+        case 4:
+          message.initial = reader.int32()
+          break
+        case 5:
+          message.final = reader.int32()
+          break
+        case 6:
+          message.owner = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateStat {
+    const message = { ...baseMsgUpdateStat } as MsgUpdateStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = Number(object.statType)
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = Number(object.initial)
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = Number(object.final)
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = String(object.owner)
+    } else {
+      message.owner = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateStat): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.statType !== undefined && (obj.statType = message.statType)
+    message.initial !== undefined && (obj.initial = message.initial)
+    message.final !== undefined && (obj.final = message.final)
+    message.owner !== undefined && (obj.owner = message.owner)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateStat>): MsgUpdateStat {
+    const message = { ...baseMsgUpdateStat } as MsgUpdateStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = object.statType
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = object.initial
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = object.final
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner
+    } else {
+      message.owner = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateStatResponse: object = {}
+
+export const MsgUpdateStatResponse = {
+  encode(_: MsgUpdateStatResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateStatResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateStatResponse } as MsgUpdateStatResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateStatResponse {
+    const message = { ...baseMsgUpdateStatResponse } as MsgUpdateStatResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateStatResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateStatResponse>): MsgUpdateStatResponse {
+    const message = { ...baseMsgUpdateStatResponse } as MsgUpdateStatResponse
+    return message
+  }
+}
+
+const baseMsgDeleteStat: object = { creator: '', id: 0 }
+
+export const MsgDeleteStat = {
+  encode(message: MsgDeleteStat, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteStat {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteStat } as MsgDeleteStat
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteStat {
+    const message = { ...baseMsgDeleteStat } as MsgDeleteStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteStat): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteStat>): MsgDeleteStat {
+    const message = { ...baseMsgDeleteStat } as MsgDeleteStat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteStatResponse: object = {}
+
+export const MsgDeleteStatResponse = {
+  encode(_: MsgDeleteStatResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteStatResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteStatResponse } as MsgDeleteStatResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteStatResponse {
+    const message = { ...baseMsgDeleteStatResponse } as MsgDeleteStatResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteStatResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteStatResponse>): MsgDeleteStatResponse {
+    const message = { ...baseMsgDeleteStatResponse } as MsgDeleteStatResponse
+    return message
+  }
+}
 
 const baseMsgCreateTeam: object = { creator: '', name: '', users: '' }
 
@@ -446,6 +942,9 @@ export const MsgDeleteTeamResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse>
+  UpdateStat(request: MsgUpdateStat): Promise<MsgUpdateStatResponse>
+  DeleteStat(request: MsgDeleteStat): Promise<MsgDeleteStatResponse>
   CreateTeam(request: MsgCreateTeam): Promise<MsgCreateTeamResponse>
   UpdateTeam(request: MsgUpdateTeam): Promise<MsgUpdateTeamResponse>
   DeleteTeam(request: MsgDeleteTeam): Promise<MsgDeleteTeamResponse>
@@ -456,6 +955,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateStat(request: MsgCreateStat): Promise<MsgCreateStatResponse> {
+    const data = MsgCreateStat.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateStat', data)
+    return promise.then((data) => MsgCreateStatResponse.decode(new Reader(data)))
+  }
+
+  UpdateStat(request: MsgUpdateStat): Promise<MsgUpdateStatResponse> {
+    const data = MsgUpdateStat.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'UpdateStat', data)
+    return promise.then((data) => MsgUpdateStatResponse.decode(new Reader(data)))
+  }
+
+  DeleteStat(request: MsgDeleteStat): Promise<MsgDeleteStatResponse> {
+    const data = MsgDeleteStat.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'DeleteStat', data)
+    return promise.then((data) => MsgDeleteStatResponse.decode(new Reader(data)))
+  }
+
   CreateTeam(request: MsgCreateTeam): Promise<MsgCreateTeamResponse> {
     const data = MsgCreateTeam.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Msg', 'CreateTeam', data)

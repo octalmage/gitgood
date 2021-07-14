@@ -1,0 +1,15 @@
+syntax = "proto3";
+package octalmage.gitgood.gitgood;
+
+option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
+
+import "gogoproto/gogo.proto";
+
+message Stat {
+  string creator = 1;
+  uint64 id = 2;
+  int32 statType = 3; 
+  int32 initial = 4; 
+  int32 final = 5; 
+  string owner = 6; 
+}

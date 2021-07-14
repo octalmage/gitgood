@@ -29,3 +29,8 @@ const (
 	TeamKey      = "Team-value-"
 	TeamCountKey = "Team-count-"
 )
+
+const (
+	StatKey      = "Stat-value-"
+	StatCountKey = "Stat-count-"
+)

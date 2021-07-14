@@ -1,0 +1,187 @@
+/* eslint-disable */
+import * as Long from 'long'
+import { util, configure, Writer, Reader } from 'protobufjs/minimal'
+
+export const protobufPackage = 'octalmage.gitgood.gitgood'
+
+export interface Stat {
+  creator: string
+  id: number
+  statType: number
+  initial: number
+  final: number
+  owner: string
+}
+
+const baseStat: object = { creator: '', id: 0, statType: 0, initial: 0, final: 0, owner: '' }
+
+export const Stat = {
+  encode(message: Stat, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.statType !== 0) {
+      writer.uint32(24).int32(message.statType)
+    }
+    if (message.initial !== 0) {
+      writer.uint32(32).int32(message.initial)
+    }
+    if (message.final !== 0) {
+      writer.uint32(40).int32(message.final)
+    }
+    if (message.owner !== '') {
+      writer.uint32(50).string(message.owner)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): Stat {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseStat } as Stat
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.statType = reader.int32()
+          break
+        case 4:
+          message.initial = reader.int32()
+          break
+        case 5:
+          message.final = reader.int32()
+          break
+        case 6:
+          message.owner = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): Stat {
+    const message = { ...baseStat } as Stat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = Number(object.statType)
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = Number(object.initial)
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = Number(object.final)
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = String(object.owner)
+    } else {
+      message.owner = ''
+    }
+    return message
+  },
+
+  toJSON(message: Stat): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.statType !== undefined && (obj.statType = message.statType)
+    message.initial !== undefined && (obj.initial = message.initial)
+    message.final !== undefined && (obj.final = message.final)
+    message.owner !== undefined && (obj.owner = message.owner)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<Stat>): Stat {
+    const message = { ...baseStat } as Stat
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.statType !== undefined && object.statType !== null) {
+      message.statType = object.statType
+    } else {
+      message.statType = 0
+    }
+    if (object.initial !== undefined && object.initial !== null) {
+      message.initial = object.initial
+    } else {
+      message.initial = 0
+    }
+    if (object.final !== undefined && object.final !== null) {
+      message.final = object.final
+    } else {
+      message.final = 0
+    }
+    if (object.owner !== undefined && object.owner !== null) {
+      message.owner = object.owner
+    } else {
+      message.owner = ''
+    }
+    return message
+  }
+}
+
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
+
+type Builtin = Date | Function | Uint8Array | string | number | undefined
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}

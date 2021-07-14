@@ -7,6 +7,7 @@
         </div>
       </div>
       <!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="octalmage.gitgood.gitgood" moduleType="Stat"  />
       <SpType modulePath="octalmage.gitgood.gitgood" moduleType="Team" />
     </div>
   </div>

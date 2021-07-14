@@ -2,6 +2,7 @@ syntax = "proto3";
 package octalmage.gitgood.gitgood;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "gitgood/stat.proto";
 import "gitgood/team.proto";
 
 option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
@@ -9,12 +10,45 @@ option go_package = "github.com/octalmage/gitgood/x/gitgood/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateStat(MsgCreateStat) returns (MsgCreateStatResponse);
+  rpc UpdateStat(MsgUpdateStat) returns (MsgUpdateStatResponse);
+  rpc DeleteStat(MsgDeleteStat) returns (MsgDeleteStatResponse);
   rpc CreateTeam(MsgCreateTeam) returns (MsgCreateTeamResponse);
   rpc UpdateTeam(MsgUpdateTeam) returns (MsgUpdateTeamResponse);
   rpc DeleteTeam(MsgDeleteTeam) returns (MsgDeleteTeamResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateStat {
+  string creator = 1;
+  int32 statType = 2;
+  int32 initial = 3;
+  int32 final = 4;
+  string owner = 5;
+}
+
+message MsgCreateStatResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateStat {
+  string creator = 1;
+  uint64 id = 2;
+  int32 statType = 3;
+  int32 initial = 4;
+  int32 final = 5;
+  string owner = 6;
+}
+
+message MsgUpdateStatResponse { }
+
+message MsgDeleteStat {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteStatResponse { }
+
 message MsgCreateTeam {
   string creator = 1;
   string name = 2;

@@ -1,12 +1,30 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { Team } from '../gitgood/team'
+import { Stat } from '../gitgood/stat'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { Team } from '../gitgood/team'
 
 export const protobufPackage = 'octalmage.gitgood.gitgood'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetStatRequest {
+  id: number
+}
+
+export interface QueryGetStatResponse {
+  Stat: Stat | undefined
+}
+
+export interface QueryAllStatRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllStatResponse {
+  Stat: Stat[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetTeamRequest {
   id: number
 }
@@ -22,6 +40,250 @@ export interface QueryAllTeamRequest {
 export interface QueryAllTeamResponse {
   Team: Team[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetStatRequest: object = { id: 0 }
+
+export const QueryGetStatRequest = {
+  encode(message: QueryGetStatRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetStatRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetStatRequest } as QueryGetStatRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetStatRequest {
+    const message = { ...baseQueryGetStatRequest } as QueryGetStatRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetStatRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetStatRequest>): QueryGetStatRequest {
+    const message = { ...baseQueryGetStatRequest } as QueryGetStatRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetStatResponse: object = {}
+
+export const QueryGetStatResponse = {
+  encode(message: QueryGetStatResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Stat !== undefined) {
+      Stat.encode(message.Stat, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetStatResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetStatResponse } as QueryGetStatResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Stat = Stat.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetStatResponse {
+    const message = { ...baseQueryGetStatResponse } as QueryGetStatResponse
+    if (object.Stat !== undefined && object.Stat !== null) {
+      message.Stat = Stat.fromJSON(object.Stat)
+    } else {
+      message.Stat = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetStatResponse): unknown {
+    const obj: any = {}
+    message.Stat !== undefined && (obj.Stat = message.Stat ? Stat.toJSON(message.Stat) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetStatResponse>): QueryGetStatResponse {
+    const message = { ...baseQueryGetStatResponse } as QueryGetStatResponse
+    if (object.Stat !== undefined && object.Stat !== null) {
+      message.Stat = Stat.fromPartial(object.Stat)
+    } else {
+      message.Stat = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllStatRequest: object = {}
+
+export const QueryAllStatRequest = {
+  encode(message: QueryAllStatRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllStatRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllStatRequest } as QueryAllStatRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllStatRequest {
+    const message = { ...baseQueryAllStatRequest } as QueryAllStatRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllStatRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllStatRequest>): QueryAllStatRequest {
+    const message = { ...baseQueryAllStatRequest } as QueryAllStatRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllStatResponse: object = {}
+
+export const QueryAllStatResponse = {
+  encode(message: QueryAllStatResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.Stat) {
+      Stat.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllStatResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllStatResponse } as QueryAllStatResponse
+    message.Stat = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Stat.push(Stat.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllStatResponse {
+    const message = { ...baseQueryAllStatResponse } as QueryAllStatResponse
+    message.Stat = []
+    if (object.Stat !== undefined && object.Stat !== null) {
+      for (const e of object.Stat) {
+        message.Stat.push(Stat.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllStatResponse): unknown {
+    const obj: any = {}
+    if (message.Stat) {
+      obj.Stat = message.Stat.map((e) => (e ? Stat.toJSON(e) : undefined))
+    } else {
+      obj.Stat = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllStatResponse>): QueryAllStatResponse {
+    const message = { ...baseQueryAllStatResponse } as QueryAllStatResponse
+    message.Stat = []
+    if (object.Stat !== undefined && object.Stat !== null) {
+      for (const e of object.Stat) {
+        message.Stat.push(Stat.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetTeamRequest: object = { id: 0 }
@@ -270,6 +532,10 @@ export const QueryAllTeamResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a stat by id. */
+  Stat(request: QueryGetStatRequest): Promise<QueryGetStatResponse>
+  /** Queries a list of stat items. */
+  StatAll(request: QueryAllStatRequest): Promise<QueryAllStatResponse>
   /** Queries a team by id. */
   Team(request: QueryGetTeamRequest): Promise<QueryGetTeamResponse>
   /** Queries a list of team items. */
@@ -281,6 +547,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  Stat(request: QueryGetStatRequest): Promise<QueryGetStatResponse> {
+    const data = QueryGetStatRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Stat', data)
+    return promise.then((data) => QueryGetStatResponse.decode(new Reader(data)))
+  }
+
+  StatAll(request: QueryAllStatRequest): Promise<QueryAllStatResponse> {
+    const data = QueryAllStatRequest.encode(request).finish()
+    const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'StatAll', data)
+    return promise.then((data) => QueryAllStatResponse.decode(new Reader(data)))
+  }
+
   Team(request: QueryGetTeamRequest): Promise<QueryGetTeamResponse> {
     const data = QueryGetTeamRequest.encode(request).finish()
     const promise = this.rpc.request('octalmage.gitgood.gitgood.Query', 'Team', data)

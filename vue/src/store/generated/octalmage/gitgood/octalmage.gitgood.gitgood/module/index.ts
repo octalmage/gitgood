@@ -5,14 +5,20 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgUpdateTeam } from "./types/gitgood/tx";
-import { MsgCreateTeam } from "./types/gitgood/tx";
+import { MsgDeleteStat } from "./types/gitgood/tx";
 import { MsgDeleteTeam } from "./types/gitgood/tx";
+import { MsgCreateStat } from "./types/gitgood/tx";
+import { MsgUpdateStat } from "./types/gitgood/tx";
+import { MsgCreateTeam } from "./types/gitgood/tx";
 
 
 const types = [
   ["/octalmage.gitgood.gitgood.MsgUpdateTeam", MsgUpdateTeam],
-  ["/octalmage.gitgood.gitgood.MsgCreateTeam", MsgCreateTeam],
+  ["/octalmage.gitgood.gitgood.MsgDeleteStat", MsgDeleteStat],
   ["/octalmage.gitgood.gitgood.MsgDeleteTeam", MsgDeleteTeam],
+  ["/octalmage.gitgood.gitgood.MsgCreateStat", MsgCreateStat],
+  ["/octalmage.gitgood.gitgood.MsgUpdateStat", MsgUpdateStat],
+  ["/octalmage.gitgood.gitgood.MsgCreateTeam", MsgCreateTeam],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -42,8 +48,11 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgUpdateTeam: (data: MsgUpdateTeam): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgUpdateTeam", value: data }),
-    msgCreateTeam: (data: MsgCreateTeam): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateTeam", value: data }),
+    msgDeleteStat: (data: MsgDeleteStat): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgDeleteStat", value: data }),
     msgDeleteTeam: (data: MsgDeleteTeam): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgDeleteTeam", value: data }),
+    msgCreateStat: (data: MsgCreateStat): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateStat", value: data }),
+    msgUpdateStat: (data: MsgUpdateStat): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgUpdateStat", value: data }),
+    msgCreateTeam: (data: MsgCreateTeam): EncodeObject => ({ typeUrl: "/octalmage.gitgood.gitgood.MsgCreateTeam", value: data }),
     
   };
 };

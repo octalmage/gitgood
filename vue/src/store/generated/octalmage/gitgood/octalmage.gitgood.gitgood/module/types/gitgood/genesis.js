@@ -1,11 +1,18 @@
 /* eslint-disable */
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Stat } from '../gitgood/stat';
 import { Team } from '../gitgood/team';
 export const protobufPackage = 'octalmage.gitgood.gitgood';
-const baseGenesisState = { teamCount: 0 };
+const baseGenesisState = { statCount: 0, teamCount: 0 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
+        for (const v of message.statList) {
+            Stat.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.statCount !== 0) {
+            writer.uint32(32).uint64(message.statCount);
+        }
         for (const v of message.teamList) {
             Team.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -18,10 +25,17 @@ export const GenesisState = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
+        message.statList = [];
         message.teamList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 3:
+                    message.statList.push(Stat.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.statCount = longToNumber(reader.uint64());
+                    break;
                 case 1:
                     message.teamList.push(Team.decode(reader, reader.uint32()));
                     break;
@@ -37,7 +51,19 @@ export const GenesisState = {
     },
     fromJSON(object) {
         const message = { ...baseGenesisState };
+        message.statList = [];
         message.teamList = [];
+        if (object.statList !== undefined && object.statList !== null) {
+            for (const e of object.statList) {
+                message.statList.push(Stat.fromJSON(e));
+            }
+        }
+        if (object.statCount !== undefined && object.statCount !== null) {
+            message.statCount = Number(object.statCount);
+        }
+        else {
+            message.statCount = 0;
+        }
         if (object.teamList !== undefined && object.teamList !== null) {
             for (const e of object.teamList) {
                 message.teamList.push(Team.fromJSON(e));
@@ -53,6 +79,13 @@ export const GenesisState = {
     },
     toJSON(message) {
         const obj = {};
+        if (message.statList) {
+            obj.statList = message.statList.map((e) => (e ? Stat.toJSON(e) : undefined));
+        }
+        else {
+            obj.statList = [];
+        }
+        message.statCount !== undefined && (obj.statCount = message.statCount);
         if (message.teamList) {
             obj.teamList = message.teamList.map((e) => (e ? Team.toJSON(e) : undefined));
         }
@@ -64,7 +97,19 @@ export const GenesisState = {
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
+        message.statList = [];
         message.teamList = [];
+        if (object.statList !== undefined && object.statList !== null) {
+            for (const e of object.statList) {
+                message.statList.push(Stat.fromPartial(e));
+            }
+        }
+        if (object.statCount !== undefined && object.statCount !== null) {
+            message.statCount = object.statCount;
+        }
+        else {
+            message.statCount = 0;
+        }
         if (object.teamList !== undefined && object.teamList !== null) {
             for (const e of object.teamList) {
                 message.teamList.push(Team.fromPartial(e));
