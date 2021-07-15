@@ -1,14 +1,15 @@
 <template>
 		<div>
-      <div>
-        <h4>Team Name</h4>
-        <input type="text" v-model="teamName" />
-      </div>
-
-      <div>
-        <h4>Submit</h4>
-        <input type="submit" value="Submit" v-on:click="createTeam" />
-      </div>
+      <form action="">
+        <h4>Create new team</h4>
+        <div class="field">
+          <label for="newTeamName">Team Name</label>
+          <input type="text" v-model="teamName" />
+        </div>
+        <div class="field">
+          <input class="sp-button sp-button-primary" type="submit" value="Submit" v-on:click="createTeam" />
+        </div>
+      </form>
     </div>
 </template>
 <script>
