@@ -1,0 +1,43 @@
+#arcade-window-wrapper {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    border-bottom: 10px solid $purple;
+}
+#arcade-window {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100px;
+    margin: 0 auto;
+    .joystick {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &:before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50px;
+            box-shadow: 2px 2px 5px black;
+            position: relative;
+        }
+        &:after {
+            content: '';
+            width: 5px;
+            height: 20px;
+            background-color: grey;
+        }
+    }
+    .btn1, .btn2 {
+        border-radius: 5px 5px 0 0;
+        width: 25px;
+        height: 5px;
+        background-color: red;
+    }
+}
+
+.sp-fill {
+    padding-bottom: 9rem;
+}

@@ -5,6 +5,13 @@
       <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
       <AddTeamForm />
     </div>
+    <div id="arcade-window-wrapper">
+      <div id="arcade-window">
+        <div class="joystick"></div>
+        <div class="btn1"></div>
+        <div class="btn2"></div>
+      </div>
+    </div>
   </div>
 </template>
 
