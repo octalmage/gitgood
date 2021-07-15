@@ -76,3 +76,46 @@ h1 {
     }
 }
 
+// Buttons
+.sp-button {
+    &.sp-button-primary {
+        background-color: $gold;
+        color: $dark-grey;
+        font-weight: normal;
+        font-size: 0.8em;
+        border: none;
+        border-radius: 1rem;
+        padding: .4em 1em .125em;
+        height: auto;
+    }
+}
+
+// Forms
+form {
+    background-color: rgba($mid-purple, .4);
+    padding: 1em;
+    border: 2px dashed $mid-purple;
+    border-radius: 5px;
+    select,
+    input {
+        background-color: $dark-purple;
+        border: none;
+        color: $white;
+        max-width: 100%;
+        padding: 0.125em 0.6em 0;
+        border-radius: 5px;
+    }
+    h4 {
+        margin: 0 0 1em;
+    }
+    .field {
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+label {
+    display: block;
+}
