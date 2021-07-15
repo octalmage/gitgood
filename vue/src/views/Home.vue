@@ -2,8 +2,8 @@
   <div>
     <div class="container">
       <h1>Home</h1>
-      <Leaderboard v-bind:items="teams" />
-			<AddTeamForm />
+      <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
+      <AddTeamForm />
     </div>
   </div>
 </template>
@@ -14,9 +14,14 @@ import AddTeamForm from '../components/AddTeamForm.vue'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      scores: {}
+    }
+  },
   components: {
     Leaderboard,
-		AddTeamForm,
+    AddTeamForm
   },
   computed: {
     teams() {
@@ -24,7 +29,6 @@ export default {
         this.$store.getters['octalmage.gitgood.gitgood/getTeamAll']({
           params: {}
         })?.Team ?? []
-
       return teams
     },
     address() {
@@ -36,6 +40,20 @@ export default {
       options: { subscribe: false, all: true },
       params: {}
     })
+
+    const teams =
+      this.$store.getters['octalmage.gitgood.gitgood/getTeamAll']({
+        params: {}
+      })?.Team ?? []
+
+    const scores = {}
+
+    for (let team of teams) {
+      const response = await (await fetch(`http://localhost:1317/octalmage/gitgood/gitgood/getTeamExp?team=${team.id}`)).json()
+      scores[team.id] = response.balance
+    }
+
+    this.scores = scores
   }
 }
 </script>

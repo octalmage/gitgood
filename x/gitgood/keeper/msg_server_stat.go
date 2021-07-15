@@ -7,7 +7,6 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/bech32"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/octalmage/gitgood/x/gitgood/types"
@@ -54,14 +53,6 @@ func (k msgServer) CreateStat(goCtx context.Context, msg *types.MsgCreateStat) (
 
 		// TODO: Use team name instead of team ID.
 		teamAcct := sdk.AccAddress(crypto.AddressHash([]byte(msg.Owner)))
-
-		bech32PrefixAccAddr := sdk.GetConfig().GetBech32AccountAddrPrefix()
-
-		add, err := bech32.ConvertAndEncode(bech32PrefixAccAddr, crypto.AddressHash([]byte(msg.Owner)))
-		if err != nil {
-			return nil, err
-		}
-		fmt.Println(add)
 
 		// exp to team
 		if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, teamAcct, feeCoins); err != nil {

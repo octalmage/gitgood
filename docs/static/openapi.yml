@@ -19450,6 +19450,46 @@ paths:
           format: uint64
       tags:
         - Query
+  /octalmage/gitgood/gitgood/getTeamExp:
+    get:
+      summary: Queries a list of getTeamExp items.
+      operationId: OctalmageGitgoodGitgoodGetTeamExp
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              balance:
+                type: string
+                format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: team
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
   /octalmage/gitgood/gitgood/goal:
     get:
       summary: Queries a list of goal items.
@@ -30541,6 +30581,12 @@ definitions:
           createdAt:
             type: string
             format: int64
+  octalmage.gitgood.gitgood.QueryGetTeamExpResponse:
+    type: object
+    properties:
+      balance:
+        type: string
+        format: int64
   octalmage.gitgood.gitgood.QueryGetTeamResponse:
     type: object
     properties:
