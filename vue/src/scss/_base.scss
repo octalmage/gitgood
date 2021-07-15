@@ -119,3 +119,30 @@ form {
 label {
     display: block;
 }
+
+// Spaceport Components
+.sp-component {
+    .sp-component-title {
+        font-size: 1em;
+        h3 {
+            font-size: inherit;
+        }
+        span {
+            font-size: .5em;
+        }
+    }
+    .sp-box {
+        border: 2px dashed $mid-purple;
+        background-color: $mid-purple;
+        font-size: 0.75em;
+        line-height: 1;
+    }
+    .sp-box-header {
+        font-size: 2em;
+        font-weight: normal;
+        margin-top: 1em;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
