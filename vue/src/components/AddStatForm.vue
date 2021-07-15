@@ -54,21 +54,15 @@ export default {
 						fee: [],
 					});
 
-					// how do we know where to send the message
-					// how do we know how much exp
-					// how do we know the level
-
-					const data = await fetch('https://hooks.slack.com/services/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', {
+					const data = await fetch('https://hooks.slack.com/services/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', {
 						method: 'POST',
 						mode: 'no-cors',
 						headers: {
 							'Content-Type': 'application/json',
 							'Access-Control-Allow-Origin': '*'
 						},
-						body: JSON.stringify({ text: "You just earned 10xp for hitting a sprint comittment 🎉" })
+						body: JSON.stringify({ text: "Your team just earned EXP! 👾" })
 					})
-
-					console.log('data: ', data);
 
 					return response;
 				} catch (error) {
