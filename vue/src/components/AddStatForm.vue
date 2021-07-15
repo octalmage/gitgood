@@ -1,21 +1,24 @@
 <template>
 	<div>
-		<select v-model="statType">
-			<option selected value="0">Choose a goal</option>
-			<option v-bind:key="goal.id" v-for="goal in goals" v-bind:value="goal.id">
-				{{ goal.label }}
-			</option>
-		</select>
 		<form>
+			<h4>Add new stat</h4>
+			<div class="field">
+				<select v-model="statType">
+					<option selected value="0">Choose a goal</option>
+					<option v-bind:key="goal.id" v-for="goal in goals" v-bind:value="goal.id">
+						{{ goal.label }}
+					</option>
+				</select>
+			</div>
 			<div class="field">
 				<label class="label">Initial</label>
 				<input v-model="initial" placeholder="initial" type="number">
 			</div>
-			<div>
+			<div class="field">
 				<label class="label">Final</label>
 				<input v-model="final" placeholder="final" type="number">
 			</div>
-			<button v-on:click="submitStat">Submit</button>
+			<button class="sp-button sp-button-primary" v-on:click="submitStat">Submit</button>
 		</form>
 	</div>
 </template>
