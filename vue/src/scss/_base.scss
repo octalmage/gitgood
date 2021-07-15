@@ -66,6 +66,7 @@ h1 {
                 font-weight: normal;
                 line-height: .8 !important;
                 margin-left: 1.25rem;
+                color: white;
             }
         }
     }
@@ -150,5 +151,15 @@ label {
         &:first-child {
             margin-top: 0;
         }
+    }
+}
+
+.LeaderboardTeams {
+    a.sp-link-icon, a.sp-link-icon-wrapper {
+        color: white !important;
+    }
+
+    .sp-link-icon, .sp-link-icon-wrapper, .sp-link-icon__text {
+        font-size: 3rem !important;
     }
 }

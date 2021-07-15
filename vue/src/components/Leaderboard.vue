@@ -1,13 +1,14 @@
 <template>
-<div>
-		<div v-for="item in items" :key="item.message">
-					<div>
-							<SpLinkIcon :link="'/team/' + item.id" :text="item.name" icon="RightArrow" />
+	<div class='LeaderboardTeams'>
+			<div v-for="item in items" :key="item.message">
+						<div>
+								<SpLinkIcon :link="'/team/' + item.id" :text="item.name" icon="RightArrow" />
 
-							Score: {{ getScore(item.id) }}
-					</div>
-		</div>
-</div>
+								<h3>Score: {{ getScore(item.id) }}</h3>
+								<h3>Level: {{ calculateLevel(getScore(item.id)) }}</h3>
+						</div>
+			</div>
+	</div>
 </template>
 
 <script>
@@ -22,7 +23,17 @@ export default {
   methods: {
     getScore(teamId) {
       return typeof this.scores[teamId] === 'undefined' ? 0 : this.scores[teamId]
-    }
+    },
+		calculateLevel(exp) {
+			if (exp < 9) {
+				return 0;
+			}
+			// Set the first level at around 10 exp
+			exp = exp - 9;
+
+			// the last divisor helps "flatten" the curve a bit
+			return Math.ceil(Math.sqrt(exp/9));
+		},
   }
 }
 </script>
