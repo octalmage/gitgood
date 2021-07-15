@@ -87,6 +87,12 @@ h1 {
         border-radius: 1rem;
         padding: .4em 1em .125em;
         height: auto;
+        &:disabled {
+            border: 0;
+            opacity: .5;
+            color: $white !important;
+            background: rgba(grey, .4) !important;
+        }
     }
 }
 
