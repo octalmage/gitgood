@@ -8,12 +8,6 @@
 			<SpLinkIcon link="/wallet" text="Wallet" icon="Transactions" />
 			<SpLinkIcon link="/admin" text="Admin" icon="Lock" />
 			<div class="sp-dash"></div>
-			<SpLinkIcon
-				href="https://github.com/tendermint/starport"
-				target="_blank"
-				text="Documentation"
-				icon="Docs"
-			/>
 		</template>
 		<template v-slot:footer>
 			<SpStatusAPI :showText="sidebarOpen" />
