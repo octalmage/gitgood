@@ -47,6 +47,7 @@ export default {
       const value = {
         creator: this.currentAccount,
         name: this.teamName,
+				slackIntegration: '#gitgood'
       };
       const response = await this.$store.dispatch("octalmage.gitgood.gitgood/sendMsgCreateTeam", {
         value,

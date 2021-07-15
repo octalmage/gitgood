@@ -58,7 +58,7 @@ export default {
 					// how do we know how much exp
 					// how do we know the level
 
-					const data = await fetch('https://hooks.slack.com/services/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', {
+					const data = await fetch('https://hooks.slack.com/services/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', {
 						method: 'POST',
 						mode: 'no-cors',
 						headers: {

@@ -7,11 +7,12 @@ import (
 
 var _ sdk.Msg = &MsgCreateTeam{}
 
-func NewMsgCreateTeam(creator string, name string, users []string) *MsgCreateTeam {
+func NewMsgCreateTeam(creator string, name string, users []string, slackIntegration string) *MsgCreateTeam {
 	return &MsgCreateTeam{
-		Creator: creator,
-		Name:    name,
-		Users:   users,
+		Creator:          creator,
+		Name:             name,
+		Users:            users,
+		SlackIntegration: slackIntegration,
 	}
 }
 
@@ -46,12 +47,13 @@ func (msg *MsgCreateTeam) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateTeam{}
 
-func NewMsgUpdateTeam(creator string, id uint64, name string, users []string) *MsgUpdateTeam {
+func NewMsgUpdateTeam(creator string, id uint64, name string, users []string, slackIntegration string) *MsgUpdateTeam {
 	return &MsgUpdateTeam{
-		Id:      id,
-		Creator: creator,
-		Name:    name,
-		Users:   users,
+		Id:               id,
+		Creator:          creator,
+		Name:             name,
+		Users:            users,
+		SlackIntegration: slackIntegration,
 	}
 }
 

@@ -13,9 +13,10 @@ func (k msgServer) CreateTeam(goCtx context.Context, msg *types.MsgCreateTeam) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var team = types.Team{
-		Creator: msg.Creator,
-		Name:    msg.Name,
-		Users:   msg.Users,
+		Creator:          msg.Creator,
+		Name:             msg.Name,
+		Users:            msg.Users,
+		SlackIntegration: msg.SlackIntegration,
 	}
 
 	id := k.AppendTeam(
@@ -32,10 +33,11 @@ func (k msgServer) UpdateTeam(goCtx context.Context, msg *types.MsgUpdateTeam) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var team = types.Team{
-		Creator: msg.Creator,
-		Id:      msg.Id,
-		Name:    msg.Name,
-		Users:   msg.Users,
+		Creator:          msg.Creator,
+		Id:               msg.Id,
+		Name:             msg.Name,
+		Users:            msg.Users,
+		SlackIntegration: msg.SlackIntegration,
 	}
 
 	// Checks that the element exists

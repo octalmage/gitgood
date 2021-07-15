@@ -17,7 +17,7 @@ func CmdCreateTeam() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-team [name] [users]",
 		Short: "Create a new team",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsName, err := cast.ToStringE(args[0])
 			if err != nil {
@@ -35,7 +35,7 @@ func CmdCreateTeam() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateTeam(clientCtx.GetFromAddress().String(), argsName, []string{})
+			msg := types.NewMsgCreateTeam(clientCtx.GetFromAddress().String(), argsName, []string{}, args[2])
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -52,7 +52,7 @@ func CmdUpdateTeam() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-team [id] [name] [users]",
 		Short: "Update a team",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
@@ -75,7 +75,7 @@ func CmdUpdateTeam() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdateTeam(clientCtx.GetFromAddress().String(), id, argsName, []string{})
+			msg := types.NewMsgUpdateTeam(clientCtx.GetFromAddress().String(), id, argsName, []string{}, args[3])
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

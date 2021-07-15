@@ -29,6 +29,7 @@ export default {
         this.$store.getters['octalmage.gitgood.gitgood/getTeamAll']({
           params: {}
         })?.Team ?? []
+			console.log('teams: ', teams);
       return teams
     },
     address() {
