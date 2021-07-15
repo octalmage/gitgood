@@ -1,0 +1,78 @@
+// Typography
+#app {
+    font-family: 'pixeltyperegular';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+body {
+    font-size: 3.5rem;
+    #app {
+        background-color: $dark-purple;
+        color: $white;
+    }
+}
+
+// Base Styles
+h1 {
+    font-size: 36px;
+    font-weight: normal;
+    line-height: 1em;
+    background-color: $purple;
+    padding: 1em 0.25em 0.125em;
+    border-top: 0.25em solid $mid-purple;
+    border-bottom: 0.25em solid $mid-purple;
+    @media screen and (min-width: 768px) {
+        font-size: 7rem;
+    }
+}
+
+// A separator found in the sidebar
+.sp-dash {
+    #app & {
+        background-color: $white;
+    }
+}
+
+// The wallet manager
+.sp-wallet {
+    background-color: $dark-purple;
+    border-radius: 1.6rem;
+
+    .sp-wallet-menu {
+        background: linear-gradient(180deg, rgba(72, 46, 214, 0.2) 0%, rgba(31, 16, 119, 0.2) 96.25%);
+    }
+
+    .sp-text {
+        font-size: 2.5rem;
+        font-weight: normal;
+        line-height: 0.7em;
+    }
+
+}
+
+// Main Nav and Sidebar
+.sp-sidebar {
+    background-color: $mid-purple;
+    background: linear-gradient(180deg, $mid-purple 0%, $dark-purple 70%);
+    .sp-link-icon {
+        margin-bottom: 1rem;
+        .sp-link-icon-wrapper {
+            color: $white;
+            .sp-link-icon__text {
+                font-size: 4rem;
+                font-weight: normal;
+                line-height: .8 !important;
+                margin-left: 1.25rem;
+            }
+        }
+    }
+    .sp-hamburger {
+        background-color: transparent;
+        color: $gold;
+        border: 2px solid;
+    }
+}
+
