@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<select v-model="statType">
+			<option selected value="0">Choose a goal</option>
 			<option v-bind:key="goal.id" v-for="goal in goals" v-bind:value="goal.id">
 				{{ goal.label }}
 			</option>
@@ -25,7 +26,7 @@ export default {
 	props: ['goals'],
 	data() {
 		return {
-			statType: 0,
+			statType: "0",
 			initial: 0,
 			final: 0,
 		}
@@ -33,24 +34,27 @@ export default {
 	methods: {
 		submitStat: async function (event) {
 			event.preventDefault();
-			// submit to the chain
-			const value = {
-				owner: this.$route.params.id,
-        initial: this.initial,
-				final: this.final,
-        statType: this.statType,
-				creator: this.currentAccount,
-      };
 
-			try {
-				const response = await this.$store.dispatch("octalmage.gitgood.gitgood/sendMsgCreateStat", {
-					value,
-					fee: [],
-				});
+			if (this.statType !== "0") {
+				// submit to the chain
+				const value = {
+					owner: this.$route.params.id,
+					initial: this.initial,
+					final: this.final,
+					statType: this.statType,
+					creator: this.currentAccount,
+				};
 
-				return response;
-			} catch (error) {
-				console.log('error: ', error);
+				try {
+					const response = await this.$store.dispatch("octalmage.gitgood.gitgood/sendMsgCreateStat", {
+						value,
+						fee: [],
+					});
+
+					return response;
+				} catch (error) {
+					console.log('error: ', error);
+				}
 			}
 		},
 	},
