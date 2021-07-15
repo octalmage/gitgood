@@ -19890,6 +19890,8 @@ paths:
                       type: array
                       items:
                         type: string
+                    slackIntegration:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -20010,6 +20012,8 @@ paths:
                     type: array
                     items:
                       type: string
+                  slackIntegration:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -30491,6 +30495,8 @@ definitions:
               type: array
               items:
                 type: string
+            slackIntegration:
+              type: string
       pagination:
         type: object
         properties:
@@ -30604,6 +30610,8 @@ definitions:
             type: array
             items:
               type: string
+          slackIntegration:
+            type: string
   octalmage.gitgood.gitgood.Stat:
     type: object
     properties:
