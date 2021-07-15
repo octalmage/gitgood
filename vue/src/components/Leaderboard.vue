@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="item in items" :key="item.message">{{ item.name }} - {{ getScore(item.id) }}</li>
-    </ul>
-  </div>
+<div>
+		<div v-for="item in items" :key="item.message">
+					<div>
+							<SpLinkIcon :link="'/team/' + item.id" :text="item.name" icon="RightArrow" />
+
+							Score: {{ getScore(item.id) }}
+					</div>
+		</div>
+</div>
 </template>
 
 <script>

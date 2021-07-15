@@ -1,6 +1,6 @@
 <template>
 		<div>
-      <form action="">
+      <form v-on:submit.prevent="createTeam">
         <h4>Create new team</h4>
         <div class="field">
           <label for="newTeamName">Team Name</label>
