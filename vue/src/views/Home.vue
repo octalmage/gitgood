@@ -5,10 +5,10 @@
 			v-bind:teams="teams"
 			v-bind:showForm="showAddStatForm"
 		/>
+		<AddTeamForm v-bind:showForm="showAddTeamForm" />
     <div class="container">
 			<h1>All Teams</h1>
       <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
-      <AddTeamForm v-bind:showForm="showAddTeamForm" />
     </div>
     <div id="arcade-window-wrapper">
       <div id="arcade-window">

@@ -4,13 +4,13 @@
 				closed: !showForm
 			}">
       <form v-on:submit.prevent="createTeam">
-        <h4>Create new team</h4>
+        <h4>Add a Team</h4>
         <div class="field">
           <label for="newTeamName">Team Name</label>
           <input type="text" v-model="teamName" />
         </div>
         <div class="field">
-          <input class="sp-button sp-button-primary" type="submit" value="Submit" v-on:click="createTeam" />
+          <input class="sp-button sp-button-primary" type="submit" value="Save Team" v-on:click="createTeam" />
         </div>
       </form>
     </div>

@@ -4,7 +4,7 @@
 				closed: !showForm
 			}">
 		<form>
-			<h4>Add new stat</h4>
+			<h4>Add Accomplishment</h4>
 			<div class="field">
 				<select v-model="statType">
 					<option selected value="0">Choose a goal</option>
@@ -21,7 +21,7 @@
 				<label class="label">Final</label>
 				<input v-model="final" placeholder="final" type="number">
 			</div>
-			<button class="sp-button sp-button-primary" v-on:click="submitStat">Submit</button>
+			<button class="sp-button sp-button-primary" v-on:click="submitStat">Save Accomplishment</button>
 		</form>
 	</div>
 </template>
