@@ -2,7 +2,7 @@
 	<div>
 		<div class="container">
 			<h1>Team</h1>
-			<AddStatForm v-bind:goals="goals" />
+			<AddStatForm v-bind:goals="goals" v-bind:showForm="true" />
 		</div>
 	</div>
 </template>

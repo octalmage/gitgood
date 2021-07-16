@@ -57,7 +57,7 @@ export default {
 						fee: [],
 					});
 
-					const data = await fetch('https://hooks.slack.com/services/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', {
+					const data = await fetch('https://hooks.slack.com/services/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', {
 						method: 'POST',
 						mode: 'no-cors',
 						headers: {
