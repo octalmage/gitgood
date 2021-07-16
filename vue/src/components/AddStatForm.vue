@@ -1,5 +1,8 @@
 <template>
-	<div>
+	<div class="modal"
+			:class="{
+				closed: !showForm
+			}">
 		<form>
 			<h4>Add new stat</h4>
 			<div class="field">
@@ -26,7 +29,7 @@
 <script>
 export default {
 	name: 'AddStatForm',
-	props: ['goals'],
+	props: ['goals', 'teams', 'showForm'],
 	data() {
 		return {
 			statType: "0",
@@ -41,7 +44,7 @@ export default {
 			if (this.statType !== "0") {
 				// submit to the chain
 				const value = {
-					owner: this.$route.params.id,
+					// owner: this.$route.params.id,
 					initial: this.initial,
 					final: this.final,
 					statType: this.statType,

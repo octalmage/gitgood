@@ -1,9 +1,28 @@
 <template>
   <div>
+		<AddStatForm
+			v-bind:goals="goals"
+			v-bind:teams="teams"
+			v-bind:showForm="showAddStatForm"
+		/>
     <div class="container">
       <h1>Home</h1>
       <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
-      <AddTeamForm />
+      <AddTeamForm v-bind:showForm="showAddTeamForm" />
+			<div>
+				<button
+					class="sp-button sp-button-primary"
+					v-on:click="updateShowAddStatForm"
+				>
+					+ Accomplishment
+				</button>
+				<button
+					class="sp-button sp-button-secondary"
+					v-on:click="updateShowAddTeamForm"
+				>
+					Add a Team
+				</button>
+			</div>
     </div>
     <div id="arcade-window-wrapper">
       <div id="arcade-window">
@@ -18,25 +37,37 @@
 <script>
 import Leaderboard from '../components/Leaderboard'
 import AddTeamForm from '../components/AddTeamForm.vue'
+import AddStatForm from '../components/AddStatForm.vue'
 
 export default {
   name: 'Home',
   data() {
     return {
-      scores: {}
+      scores: {},
+			showAddStatForm: false,
+			showAddTeamForm: false,
     }
   },
   components: {
     Leaderboard,
-    AddTeamForm
-  },
+    AddTeamForm,
+		AddStatForm,
+	},
   computed: {
+		goals() {
+      const goals =
+        this.$store.getters['octalmage.gitgood.gitgood/getGoalAll']({
+          params: {}
+        })?.Goal ?? []
+
+      return goals
+    },
     teams() {
       const teams =
         this.$store.getters['octalmage.gitgood.gitgood/getTeamAll']({
           params: {}
         })?.Team ?? []
-			console.log('teams: ', teams);
+
       return teams
     },
     address() {
@@ -62,6 +93,16 @@ export default {
     }
 
     this.scores = scores
-  }
+  },
+	methods: {
+		updateShowAddStatForm: function (event) {
+			event.preventDefault();
+			this.showAddStatForm = !this.showAddStatForm;
+		},
+		updateShowAddTeamForm: function (event) {
+			event.preventDefault();
+			this.showAddTeamForm = !this.showAddTeamForm;
+		}
+	}
 }
 </script>

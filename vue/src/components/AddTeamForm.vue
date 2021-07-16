@@ -1,5 +1,8 @@
 <template>
-		<div>
+		<div class="modal"
+			:class="{
+				closed: !showForm
+			}">
       <form v-on:submit.prevent="createTeam">
         <h4>Create new team</h4>
         <div class="field">
@@ -15,6 +18,7 @@
 <script>
 export default {
 	name: 'AddTeamForm',
+	props: ['showForm'],
 	data: () => ({
     teamName: 'Your Team Here',
   }),
