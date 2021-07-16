@@ -11,4 +11,15 @@
     display: none;
 }
 
+#button-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 81px;
+    background-color: $dark-purple;
+}
+
 @import 'colors';

@@ -9,20 +9,6 @@
       <h1>Home</h1>
       <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
       <AddTeamForm v-bind:showForm="showAddTeamForm" />
-			<div>
-				<button
-					class="sp-button sp-button-primary"
-					v-on:click="updateShowAddStatForm"
-				>
-					+ Accomplishment
-				</button>
-				<button
-					class="sp-button sp-button-secondary"
-					v-on:click="updateShowAddTeamForm"
-				>
-					Add a Team
-				</button>
-			</div>
     </div>
     <div id="arcade-window-wrapper">
       <div id="arcade-window">
@@ -31,6 +17,20 @@
         <div class="btn2"></div>
       </div>
     </div>
+		<div id="button-wrapper">
+			<button
+				class="sp-button sp-button-primary"
+				v-on:click="updateShowAddStatForm"
+			>
+				+ Accomplishment
+			</button>
+			<button
+				class="sp-button sp-button-secondary"
+				v-on:click="updateShowAddTeamForm"
+			>
+				Add a Team
+			</button>
+		</div>
   </div>
 </template>
 

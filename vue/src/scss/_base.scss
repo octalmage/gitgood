@@ -79,14 +79,17 @@ h1 {
 
 // Buttons
 .sp-button {
+    font-family: 'open_sansregular' !important;
+    font-weight: 600;
+
     &.sp-button-primary {
         background-color: $gold;
         color: $dark-grey;
-        font-weight: normal;
-        font-size: 0.8em;
+        font-size: 0.4em;
+        font-family: sans-serif;
         border: none;
-        border-radius: 1rem;
-        padding: .4em 1em .125em;
+        border-radius: .5rem;
+        padding: .9em 2.5em .9em;
         height: auto;
         &:disabled {
             border: 0;
@@ -99,8 +102,8 @@ h1 {
     &.sp-button-secondary {
         background-color: inherit;
         color: $gold;
-        font-size: 0.8em;
-        font-weight: normal;
+        font-size: 0.4em;
+        border: none;
     }
 }
 
