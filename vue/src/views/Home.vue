@@ -6,7 +6,7 @@
 			v-bind:showForm="showAddStatForm"
 		/>
     <div class="container">
-      <h1>Home</h1>
+			<h1>All Teams</h1>
       <Leaderboard v-bind:items="teams" v-bind:scores="scores" />
       <AddTeamForm v-bind:showForm="showAddTeamForm" />
     </div>

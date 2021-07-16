@@ -11,10 +11,44 @@
     display: none;
 }
 
+.container {
+    border-top: 10px solid $mid-dark-purple;
+    border-right: 10px solid $mid-dark-purple;
+    border-left: 10px solid $mid-dark-purple;
+    background-color: #110C2D;
+    overflow-y: scroll;
+    width: 100%;
+    right: 0;
+}
+
+.leaderboard-item {
+    background: linear-gradient(180deg, rgba(72, 46, 214, 0.2) 0%, rgba(31, 16, 119, 0.2) 96.25%);
+    border-radius: 20px;
+    margin-bottom: 15px;
+    height: 2.5em;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+
+    .sp-link-icon {
+        margin-bottom: 0;
+    }
+}
+
+#leaderboard-team {
+    .sp-link-icon__text {
+        font-family: 'open_sansregular';
+        font-size: 0.6em !important;
+        font-weight: 600;
+    }
+}
+
 #button-wrapper {
     position: fixed;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

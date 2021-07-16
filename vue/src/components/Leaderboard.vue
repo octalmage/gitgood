@@ -1,9 +1,9 @@
 <template>
 	<div class='LeaderboardTeams'>
-			<div v-for="item in items" :key="item.message">
-						<div>
-								<SpLinkIcon :link="'/team/' + item.id" :text="item.name" icon="RightArrow" />
-
+			<div v-for="(item, index) in items" :key="item.message">
+						<div class="leaderboard-item">
+								<div class="leaderboard-rank">{{ index + 1 }}</div>
+								<SpLinkIcon id="leaderboard-team" :link="'/team/' + item.id" :text="item.name" />
 								<h3>Score: {{ getScore(item.id) }}</h3>
 								<h3>Level: {{ calculateLevel(getScore(item.id)) }}</h3>
 						</div>
